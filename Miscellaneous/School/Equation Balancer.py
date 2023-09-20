@@ -22,9 +22,7 @@ while productAmount > 0:
 for x in allReactants:
     for y in x:
         if relativePos == 1:
-            print(x[listPos])
-            print(x[listPos+1])
-            print(x[listPos+2])
+            print(x[listPos],listPos)
             checkedReaction = [y,x[listPos+1]]
             finalReactant.append(checkedReaction)
             finalReactant.append(x[listPos+2])
