@@ -38,7 +38,7 @@ def parabola():    ###----- Makes Parabola -----###
     turt.goto(x*10, y*10)
     turt.down()
 
-    while y > -50:
+    while y < 50:
         y = w*(x+h)**2+l
         turt.goto(x*10,y*10)
         x -= 0.1
@@ -46,5 +46,8 @@ def parabola():    ###----- Makes Parabola -----###
 while True:
     grid()
     parabola()
-    input()
-    turt.clear()
+    spat = input()
+    if spat == '':
+        turt.clear()
+    if spat == 'exit':
+        break
