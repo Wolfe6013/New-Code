@@ -34,7 +34,7 @@ timesdone = 0
 found = 0
 while found == 0:
     timesdone += 1
-    Alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    Alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," "]
     if Actual1 == 0:
         letter1 = random.choice(Alphabet)
     if Actual2 == 0:
