@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat GIFs</title>
+</head>
+<body>
+    <h1>Hey Chat!
+</h1>
+    
+    <script type="text/javascript">
+        // URLs of the cat gif images
+        var catGifs = [
+            "file:///C:/Users/210108/Downloads/e.html.html",
+            "file:///C:/Users/210108/Downloads/e.html.html"
+        ];
+
+        catGifs.forEach(function(url) {
+        window.open(url, '_blank');
+        });
+    </script>
+</body>
+</html>
