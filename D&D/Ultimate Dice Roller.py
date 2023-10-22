@@ -58,9 +58,6 @@ def AnimateObjects(Upcast):
         print('Coin',TimesDone,'got a',Roll+8,'to hit.')
         if Roll+8 < AC:
             TotalMisses = TotalMisses+1
-            print('It missed!')
-        else:
-            print('It hit!')
     TimesDone = 0
     print(TotalMisses,'missed out of',10+(Upcast*2))
     while TimesDone < 10+(Upcast*2)-TotalMisses:
@@ -95,18 +92,24 @@ def IceKnife(Modifier,Upcast):
     print(TotalAmount,'cold damage on a failed save, and',HalfDamage,'on a success.')
 
 def Skeletons():
-    print('Calculating for 10 skeletons')
+    print('Calculating for 35 skeletons')
     EnemyAC = int(input('What is the enemy ac? '))
     TimesDone = 0
     TotalDamage = 0
-    while TimesDone < 10:
+    while TimesDone < 35:
         TimesDone = TimesDone+1
         ToHit = random.randint(1,20)
         print('Skeleton',TimesDone,'got a',ToHit+4,'to hit')
         if ToHit+4 >= EnemyAC:
             Damage = random.randint(1,6)
-            print('Skeleton',TimesDone,'deals',Damage+6,'piercing damage')
-            TotalDamage = TotalDamage+Damage+6
-        else:
-            time.sleep(0)
+            if ToHit == 20:
+                print('Skeleton',TimesDone,'deals',Damage*2+12,'piercing damage')
+                TotalDamage = TotalDamage+Damage*2+12
+            else:
+                print('Skeleton',TimesDone,'deals',Damage+6,'piercing damage')
+                TotalDamage = TotalDamage+Damage+6
     print('To a total of',TotalDamage,'piercing damage')
+
+Skeletons()
+AnimateObjects(0)
+Fireball(0)
