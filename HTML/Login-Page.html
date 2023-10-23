@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Opener</title>
+    <script>
+        function openImage() {
+            var username = document.getElementById("username").value;
+            var imageUrl = `file:///C:/Users/${username}/Downloads/Website_Link.html`;
+            window.open(imageUrl);
+            var imageUrl2 = `file:///C:/Users/${username}/Downloads/Website-Data.html`;
+            window.open(imageUrl2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Website</h1>
+    <form>
+        <label for="username">Enter your username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="button" onclick="openImage()">Open Website</button>
+    </form>
+</body>
+</html>
