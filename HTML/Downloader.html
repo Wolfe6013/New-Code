@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Gif Downloader</title>
+    <script>
+        function downloadCatGif() {
+            // Create an anchor element
+            var downloadLink = document.createElement('a');
+            downloadLink.href = 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D'; // Replace with the actual URL of your cat gif
+            downloadLink.download = 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D';
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+
+            // Simulate a click on the anchor element to trigger the download
+            downloadLink.click();
+
+            // Clean up the anchor element
+            document.body.removeChild(downloadLink);
+        }
+    </script>
+</head>
+<body>
+    <h1>Cat Gif Downloader</h1>
+    <button type="button" onclick="downloadCatGif()">Download Cat Gif</button>
+</body>
+</html>
