@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Gifs</title>
+</head>
+<body>
+    <h1>Cat Gifs
+</h1>
+    
+    <script type="text/javascript">
+        // URLs of the cat gif images
+        var catGifs = [
+            "cat1.gif",
+            "cat2.gif",
+            "cat3.gif",
+            "cat4.gif",
+            "cat5.gif"
+            ];
+
+        function openCatGifWithDelay(index) {
+            if (index < catGifs.length) {
+                window.open(catGifs[index], '_blank');
+                setTimeout(function () {
+                    openCatGifWithDelay(index + 1);
+                }, 100);
+            }
+        }
+
+        // Start opening cat gifs with a 5-second delay
+        setTimeout(function () {
+            openCatGifWithDelay(0);
+        }, 5000); // 5 seconds in milliseconds
+    </script>
+</body>
+</html>
