@@ -92,11 +92,11 @@ def IceKnife(Modifier,Upcast):
     print(TotalAmount,'cold damage on a failed save, and',HalfDamage,'on a success.')
 
 def Skeletons():
-    print('Calculating for 35 skeletons')
+    skeleNum = int(input("Number of skeletons? "))
     EnemyAC = int(input('What is the enemy ac? '))
     TimesDone = 0
     TotalDamage = 0
-    while TimesDone < 35:
+    while TimesDone < skeleNum:
         TimesDone = TimesDone+1
         ToHit = random.randint(1,20)
         print('Skeleton',TimesDone,'got a',ToHit+4,'to hit')
