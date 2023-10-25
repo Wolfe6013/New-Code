@@ -1,0 +1,1 @@
+for x in range(int(6.5*10**4)): print("Praise be the Dawn Lord! May his reign last eternity. ",end="")
