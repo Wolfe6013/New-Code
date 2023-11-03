@@ -1,4 +1,6 @@
-pi = '14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534'
+import os
+
+pi = '3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534'
 while True:
     digitPos = 0
     bonus = 0
@@ -7,14 +9,12 @@ while True:
     correctTotal = 0
     wrongTotal = 0
     skips = 0
-    correctSequence = ['3','.']
-    playerInput = input('3.')
+    correctSequence = []
+    playerInput = input('>')
     if playerInput == 'End':
         break
     if playerInput == 'Skip' or playerInput == '':
-        while skips < 12:
-            print()
-            skips += 1
+        os.system("cls")
     else:
         print('  ', end='')
         for x in playerInput:
@@ -29,16 +29,15 @@ while True:
                 wrongTotal = 1
             correctSequence.append(pi[digitPos])
             digitPos += 1
-        while bonus < 10:
+        for x in range(10):
             print(pi[digitPos], end='')
             correctSequence.append(pi[digitPos])
             digitPos += 1
-            bonus += 1
         print()
         for z in correctSequence:
             print(z, end='')
         print()
         if wrongAmount > 0:
-            print("You got",wrongAmount,"incorrect and",correctAmount,"correct (with a score of",correctAmount-wrongAmount,"). \nYou got",correctTotal,"decimal places right in a row!")
-        else: print("That is",correctTotal,"digits correct!")
+            print("You got",wrongAmount,"incorrect and",correctAmount-2,"correct (with a score of",correctAmount-2-wrongAmount,"). \nYou got",correctTotal-2,"decimal places right in a row!")
+        else: print("That is",correctTotal-2,"digits correct!")
         print()
