@@ -1,13 +1,12 @@
 import os
 import random
 import time
-import pyautogui
-import keyboard
 
 run = True
 menu = True
 play = False
-x = 0
+floor = 2
+x = 4
 y = 0
 
 key = False
@@ -15,14 +14,27 @@ alive = True
 
 HP = 80
 MaxHP = HP
+Str = 10
+Mana = 10
+Wit = 10
+Speed = 10
 
-
-map = [["-----","-----","-----","-----"],
-       ["-----","-----","-----","-----"],
-       ["-----","-----","-----","-----"],
-       ["-----","-----","-----","-----"]]
+map = [["--------------------"],
+       ["--------------------"],
+       ["--------------------"],
+       ["--------------------"]]
 
 #┣┫┳┻┿┏┓┗┛┃━
+
+
+if floor == 0:
+    map = [["┏━━━━━━━━━━━┓     "],
+           ["┃           ┃     "],
+           ["┃+━━━━━━━━┓ ┃     "],
+           ["┃         ┃ ┃     "],
+           ["┣━━━━━━━━━┛ ┣━━━━┓"],
+           ["┃>          +    ┃"],
+           ["┗━━━━━━━━━━━┻━━━━┛"]]
 
 if floor == 1:
     map = [["┏━━━━━━━━━━━━┳━━━━┓"],
@@ -39,42 +51,62 @@ if floor == 1:
            ["   ┃       ┃ ┃    ┃"],
            ["   ┃       ┃ ┃    ┃"],
            ["   ┗┳━━━━━━┻$┿━━━━┛"],
-           ["    ┃>       ┃"],
-           ["    ┗━━━━━━━━┛"]]
+           ["    ┃>       ┃     "],
+           ["    ┗━━━━━━━━┛     "]]
 
-"┏━━━━━━━━━━━━━━┓")
-"┃              ┃")
-"┃              ┃")
-"┃              ┃")
-"┃              ┃")
-print("┃ ┏━━━━━━━━━━━━┫")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┃            ┃")
-print("┃ ┗━━━┳━━━━━━━+┫")
-print("┃    >┃        ┃")
-print("┃     $        ┃")
-print("┗━━━━━┻━━━━━━━━┛")
+if floor == 2:
+    map = [["┏━━━━━━━━━━━━━━┓"],
+           ["┃              ┃"],
+           ["┃              ┃"],
+           ["┃              ┃"],
+           ["┃              ┃"],
+           ["┃ ┏━━━━━━━━━━━━┫"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┃            ┃"],
+           ["┃ ┗━━━┳━━━━━━━+┫"],
+           ["┃    >┃        ┃"],
+           ["┃     $        ┃"],
+           ["┗━━━━━┻━━━━━━━━┛"]]
 
 y_len = len(map)-1
 x_len = len(map[0])-1
 
+listMap = [[],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           [],
+           []]
+
+for list in map:
+    for row in list:
+        for column in row:
+            listMap.append(column)
+
+print()
 current_tile = map[y][x]
 
-biome = {
-    "-----": {
-        "t": "-----",
-        "m": [["┣━━━━"," ━━━┓"," ┣━━━"," ━━━┓ "],
-              ["┣━━━━"," ━━━┛"," ┣━━━"," ━━━┛"],
-              ["     ","     "," ┃   ","     "],
-              ["     ","     "," ┃   ","     "],
-              ["┣━━━━","━━━┫ "," ┣━━━","━━━━┫"]]}
-    }
-
+for row in map:
+    for column in row:
+        if column == current_tile: print("@",end="")
+        else: print(column,end="")
+    print()
 input()
 
 def clear():
@@ -91,7 +123,7 @@ def save():
         str(key)
     ]
 
-    f = open("load.txt","w")
+    f = open("load.txtw")
     for item in statsList:
         f.write(item + "\n")
     f.close()
@@ -158,36 +190,8 @@ while run:
     while play:
         clear()
         save()
-        if not alive or HP < 1:
-            print(f"│{name} DIED. MAKE A NEW GAME.")
-            input("│<")
-            
-            name = "-CORPSE-"
-            HP = 0
-            MaxHP = "-CORPSE-"
-            ATK = "-CORPSE-"
-            Speed = "-CORPSE-"
-            luck = "-CORPSE-"
-            gold = "-CORPSE-"
-            pot = "-CORPSE-"
-            elix = "-CORPSE-"
-            x = "-CORPSE-"
-            y = "-CORPSE-"
-            AC = "-CORPSE-"
-            MOD = "-CORPSE-"
-            dragonFound = "-CORPSE-"
-            alive = False
-            key = "-CORPSE-"
-            save()
-            quit()
-        if not standing:
-            if biome[map[y][x]]["e"]:
-                if random.randint(1,100) >= luck:
-                    fight = True
-                    battle()
-                    clear()
         draw()
-        print(f"│LOCATION:",biome[map[y][x]]["t"])
+        print(f"│LOCATION: FLOOR {floor}")
         draw()
         for b in range(5):
             print(f"│",end="")
@@ -210,17 +214,6 @@ while run:
                 HP += dif
         else:
             print(f"│HP: {HP}/{MaxHP}")
-        print(f"│ATK: {ATK}")
-        print(f"│AC: {AC}")
-        if MOD >= 0:
-            print(f"│MODIFIER: +{MOD}")
-        elif MOD < 0:
-            print(f"│MODIFIER: {MOD}")
-        print(f"│SPEED: {Speed}")
-        print(f"│LUCK: {luck}")
-        print(f"│POTIONS: {pot}")
-        print(f"│ELIXIRS: {elix}")
-        print(f"│GOLD: {gold}")
         print(f"│COORDS: ({x},{y})")
         draw()
         print(f"│0 ━ SAVE AND QUIT")
@@ -228,7 +221,6 @@ while run:
         s_option = False
         e_option = False
         w_option = False
-        locat = biome[map[y][x]]["t"]
 
         if y > 0:
             print(f"│1 ━ NORTH")
@@ -242,8 +234,6 @@ while run:
         if x < x_len:
             print(f"│4 ━ EAST")
             e_option = True
-        if "SHOP" in locat:
-            print(f"│5 ━ ENTER SHOP")
         draw()
         dest = input("│>")
         validCommand = False
@@ -273,11 +263,6 @@ while run:
             if x < x_len:
                 x += 1
                 standing = False
-        if dest == "5" and "SHOP" in locat:
-            clear()
-            validCommand = True
-            print(f"┣━━━━━━━━━━━━━━━━━━━━SHOP━━━━━━━━━━━━━━━━━━━━━┫\n│\n│TYPE THE NUMBER OF THE ITEM YOU WISH TO BUY\n│")
-            draw()
         
         if validCommand == False:
             print(f"│INVALID COMMAND")
