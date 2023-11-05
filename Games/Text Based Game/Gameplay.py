@@ -1,23 +1,22 @@
-import os
-import random
-import time
+import os, random, time, sys
 
 run = True
 menu = True
 play = False
-floor = 2
+floor = 1
 x = 4
-y = 0
+y = 1
+name = "skibibid"
 
 key = False
 alive = True
 
 HP = 80
 MaxHP = HP
-Str = 10
+Strength = 10
 Mana = 10
 Wit = 10
-Speed = 10
+Dexterity = 10
 
 map = [["--------------------"],
        ["--------------------"],
@@ -28,86 +27,64 @@ map = [["--------------------"],
 
 
 if floor == 0:
-    map = [["┏━━━━━━━━━━━┓     "],
-           ["┃           ┃     "],
-           ["┃+━━━━━━━━┓ ┃     "],
-           ["┃         ┃ ┃     "],
-           ["┣━━━━━━━━━┛ ┣━━━━┓"],
-           ["┃>          +    ┃"],
-           ["┗━━━━━━━━━━━┻━━━━┛"]]
+    map = ["┏━━━━━━━━━━━┓     ",
+           "┃           ┃     ",
+           "┃+━━━━━━━━┓ ┃     ",
+           "┃         ┃ ┃     ",
+           "┣━━━━━━━━━┛ ┣━━━━┓",
+           "┃▲          +    ┃",
+           "┗━━━━━━━━━━━┻━━━━┛"]
 
 if floor == 1:
-    map = [["┏━━━━━━━━━━━━┳━━━━┓"],
-           ["┃            *    ┃"],
-           ["┃ ┏┳━━━━━━━┓ ┃    ┃"],
-           ["┃ ┗┫       ┃ ┣━━━━┫"],
-           ["┃ >┃       + +    ┃"],
-           ["┗━━┿━━━━━━━┫ ┃    ┃"],
-           ["   ┃       ┃ ┃    ┃"],
-           ["   ┃       ┃ ┃    ┃"],
-           ["   ┣━━━*━━━┛ ┣━━━━┫"],
-           ["   +         +    ┃"],
-           ["   ┣━━━+━━━┓ ┃    ┃"],
-           ["   ┃       ┃ ┃    ┃"],
-           ["   ┃       ┃ ┃    ┃"],
-           ["   ┗┳━━━━━━┻$┿━━━━┛"],
-           ["    ┃>       ┃     "],
-           ["    ┗━━━━━━━━┛     "]]
+    map = ["┏━━━━━━━━━━━━┳━━━━┓",
+           "┃            *    ┃",
+           "┃ ┏┳━━━━━━━┓ ┃    ┃",
+           "┃ ┗┫       ┃ ┣━━━━┫",
+           "┃ ▼┃       + +    ┃",
+           "┗━━┿━━━━━━━┫ ┃    ┃",
+           "   ┃       ┃ ┃    ┃",
+           "   ┃       ┃ ┃    ┃",
+           "   ┣━━━*━━━┛ ┣━━━━┫",
+           "   +         +    ┃",
+           "   ┣━━━+━━━┓ ┃    ┃",
+           "   ┃       ┃ ┃    ┃",
+           "   ┃       ┃ ┃    ┃",
+           "   ┗┳━━━━━━┻$┿━━━━┛",
+           "    ┃▲       ┃     ",
+           "    ┗━━━━━━━━┛     "]
 
 if floor == 2:
-    map = [["┏━━━━━━━━━━━━━━┓"],
-           ["┃              ┃"],
-           ["┃              ┃"],
-           ["┃              ┃"],
-           ["┃              ┃"],
-           ["┃ ┏━━━━━━━━━━━━┫"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┃            ┃"],
-           ["┃ ┗━━━┳━━━━━━━+┫"],
-           ["┃    >┃        ┃"],
-           ["┃     $        ┃"],
-           ["┗━━━━━┻━━━━━━━━┛"]]
+    map = ["┏━━━━━━━━━━━━━━┓",
+           "┃              ┃",
+           "┃              ┃",
+           "┃              ┃",
+           "┃              ┃",
+           "┃ ┏━━━━━━━━━━━━┫",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┃            ┃",
+           "┃ ┗━━━┳━━━━━━━+┫",
+           "┃    ▼┃        ┃",
+           "┃     $        ┃",
+           "┗━━━━━┻━━━━━━━━┛"]
 
-y_len = len(map)-1
-x_len = len(map[0])-1
+def drawMap():
+    for row in map:
+        newRow = list(row)
 
-listMap = [[],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           [],
-           []]
-
-for list in map:
-    for row in list:
-        for column in row:
-            listMap.append(column)
-
-print()
-current_tile = map[y][x]
-
-for row in map:
-    for column in row:
-        if column == current_tile: print("@",end="")
-        else: print(column,end="")
-    print()
-input()
+    row_y = 0
+    for newRow in map:
+        row_x = 0
+        for column in newRow:
+            if row_y == y and row_x == x and map[y][x] == " ": print("X",end="")
+            else: print(column,end="")
+            row_x += 1
+        print()
+        row_y += 1
 
 def clear():
     os.system("cls")
@@ -116,14 +93,29 @@ def draw():
     print(f"┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫")
 
 def save():
+    if (floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity) % 2 == 0:
+        print(f"hi, {floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity}")
+        even = True
+    else:
+        print(f"Hello! {floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity}")
+        even = False
+    key = (floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity) % 8
     statsList = [
         name,
+        str(x),
+        str(y),
+        str(floor),
         str(HP),
         str(MaxHP),
+        str(Strength),
+        str(Mana),
+        str(Wit),
+        str(Dexterity),
+        str(even),
         str(key)
     ]
 
-    f = open("load.txtw")
+    f = open("load.txt","w")
     for item in statsList:
         f.write(item + "\n")
     f.close()
@@ -139,7 +131,7 @@ while run:
         if choice == "1":
             validChoice = True
             clear()
-            ("│WHAT IS YOUR NAME? ")
+            print("│WHAT IS YOUR NAME? ")
             name = input("│>")
             menu = False
             play = True
@@ -155,9 +147,17 @@ while run:
                 load_list = f.readlines()
                 if len(load_list) == 4:
                     name = load_list[0][:-1]
-                    HP = int(load_list[1][:-1])
-                    MaxHP = int(load_list[2][:-1])
-                    key = bool(load_list[3][:-1])
+                    x = int(load_list[1][:-1])
+                    y = int(load_list[2][:-1])
+                    floor = int(load_list[3][:-1])
+                    HP = int(load_list[4][:-1])
+                    MaxHP = int(load_list[5][:-1])
+                    Strength = int(load_list[6][:-1])
+                    Mana = int(load_list[7][:-1])
+                    Wit = int(load_list[8][:-1])
+                    Dexterity = int(load_list[9][:-1])
+                    even = bool(load_list[10][:-1])
+                    key = int(load_list[1][:-1])
                     clear()
                     draw()
                     print(f"│WELCOME BACK {name}!")
