@@ -4,9 +4,8 @@ run = True
 menu = True
 play = False
 floor = 1
-x = 4
-y = 1
-name = "skibibid"
+x = 0
+y = 9
 
 key = False
 alive = True
@@ -17,11 +16,6 @@ Strength = 10
 Mana = 10
 Wit = 10
 Dexterity = 10
-
-map = [["--------------------"],
-       ["--------------------"],
-       ["--------------------"],
-       ["--------------------"]]
 
 #┣┫┳┻┿┏┓┗┛┃━
 
@@ -36,22 +30,22 @@ if floor == 0:
            "┗━━━━━━━━━━━┻━━━━┛"]
 
 if floor == 1:
-    map = ["┏━━━━━━━━━━━━┳━━━━┓",
-           "┃            *    ┃",
-           "┃ ┏┳━━━━━━━┓ ┃    ┃",
-           "┃ ┗┫       ┃ ┣━━━━┫",
-           "┃ ▼┃       + +    ┃",
-           "┗━━┿━━━━━━━┫ ┃    ┃",
-           "   ┃       ┃ ┃    ┃",
-           "   ┃       ┃ ┃    ┃",
-           "   ┣━━━*━━━┛ ┣━━━━┫",
-           "   +         +    ┃",
-           "   ┣━━━+━━━┓ ┃    ┃",
-           "   ┃       ┃ ┃    ┃",
-           "   ┃       ┃ ┃    ┃",
-           "   ┗┳━━━━━━┻$┿━━━━┛",
-           "    ┃▲       ┃     ",
-           "    ┗━━━━━━━━┛     "]
+    map = [" ┏━━━━━━━━━━━━━┳━━━━┓",
+           " ┃             *    ┃",
+           " ┃ ┏┳━━━━━━━━┓ ┃    ┃",
+           " ┃ ┗┫        ┃ ┣━━━━┫",
+           " ┃ ▼┃        + +    ┃",
+           " ┗━━┗┳━━━━━━━┫ ┃    ┃",
+           "     ┃       ┃ ┃    ┃",
+           "     ┃       ┃ ┃    ┃",
+           "-----┣━━*━━━━┛ ┣━━━━┫",
+           "     +         +    ┃",
+           "-----┣━━━━+━━┓ ┃    ┃",
+           "     ┃       ┃ ┃    ┃",
+           "     ┃       ┃ ┃    ┃",
+           "     ┗┳━━━━━━┻$┿━━━━┛",
+           "      ┃▲       ┃     ",
+           "      ┗━━━━━━━━┛     "]
 
 if floor == 2:
     map = ["┏━━━━━━━━━━━━━━┓",
@@ -72,7 +66,11 @@ if floor == 2:
            "┃     $        ┃",
            "┗━━━━━┻━━━━━━━━┛"]
 
+y_max = len(map)-1
+x_max = len(map[0])-1
+
 def drawMap():
+    global map, x, y
     for row in map:
         newRow = list(row)
 
@@ -94,10 +92,8 @@ def draw():
 
 def save():
     if (floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity) % 2 == 0:
-        print(f"hi, {floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity}")
         even = True
     else:
-        print(f"Hello! {floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity}")
         even = False
     key = (floor+x+y+HP+MaxHP+Strength+Mana+Wit+Dexterity) % 8
     statsList = [
@@ -145,7 +141,7 @@ while run:
             try:
                 f = open("load.txt","r")
                 load_list = f.readlines()
-                if len(load_list) == 4:
+                if len(load_list) == 12:
                     name = load_list[0][:-1]
                     x = int(load_list[1][:-1])
                     y = int(load_list[2][:-1])
@@ -157,7 +153,7 @@ while run:
                     Wit = int(load_list[8][:-1])
                     Dexterity = int(load_list[9][:-1])
                     even = bool(load_list[10][:-1])
-                    key = int(load_list[1][:-1])
+                    key = int(load_list[11][:-1])
                     clear()
                     draw()
                     print(f"│WELCOME BACK {name}!")
@@ -189,31 +185,13 @@ while run:
 
     while play:
         clear()
-        save()
         draw()
         print(f"│LOCATION: FLOOR {floor}")
         draw()
-        for b in range(5):
-            print(f"│",end="")
-            for a in range(4):
-                if a == x and b == y:
-                    print(f"━    X     ",end="")
-                else:
-                    print(f"━ {map[b][a]} ",end="")
-            print(f"━┫")
-
+        drawMap()
         draw()
         print(f"│NAME: {name}")
-        if HP < MaxHP:
-            if HP <= MaxHP-5:
-                print(f"│HP: {HP}+5/{MaxHP}")
-                HP += 5
-            else: 
-                dif = MaxHP-HP
-                print(f"│HP: {HP}+{dif}/{MaxHP}")
-                HP += dif
-        else:
-            print(f"│HP: {HP}/{MaxHP}")
+        print(f"│HP: {HP}/{MaxHP}")
         print(f"│COORDS: ({x},{y})")
         draw()
         print(f"│0 ━ SAVE AND QUIT")
@@ -221,19 +199,28 @@ while run:
         s_option = False
         e_option = False
         w_option = False
+        moveList = " ","+"
+        f_u_option = False
+        f_d_option = False
 
-        if y > 0:
-            print(f"│1 ━ NORTH")
+        if map[y-1][x] in moveList and y > 0:
+            print(f"│W ━ NORTH")
             n_option = True
-        if y < y_len:
-            print(f"│2 ━ SOUTH")
+        if map[y+1][x] in moveList and y < y_max:
+            print(f"│S ━ SOUTH")
             s_option = True
-        if x > 0:
-            print(f"│3 ━ WEST")
+        if map[y][x-2] == " " and map[y][x-1] in moveList and x-1 > 0:
+            print(f"│A ━ WEST")
             w_option = True
-        if x < x_len:
-            print(f"│4 ━ EAST")
+        if map[y][x-1] == "▲" and not w_option:
+            print(f"│A ━ WEST")
+            f_u_option = True
+        if map[y][x+2] == " " and map[y][x+1] in moveList and x+1 < x_max:
+            print(f"│D ━ EAST")
             e_option = True
+        if map[y][x+1] == "▼" and not e_option:
+            print(f"│D ━ EAST")
+            f_d_option = True
         draw()
         dest = input("│>")
         validCommand = False
@@ -243,28 +230,26 @@ while run:
             save()
             play = False
             menu = True
-        if dest == "1" and n_option == True:
+        if dest == "W" and n_option == True:
             validCommand = True
-            if y > 0:
-                y -= 1
-                standing = False
-        if dest == "2" and s_option == True:
+            if map[y-1][x] == " ": y -= 1
+            else: y -= 2
+        if dest == "S" and s_option == True:
             validCommand = True
-            if y < y_len:
-                y += 1
-                standing = False
-        if dest == "3" and w_option == True:
+            if map[y+1][x] == " ": y += 1
+            else: y += 2
+        if dest == "A" and w_option == True:
             validCommand = True
-            if x > 0:
-                x -= 1
-                standing = False
-        if dest == "4" and e_option == True:
+            x -= 2
+            if f_u_option:
+                floor += 1
+        if dest == "D" and e_option == True:
             validCommand = True
-            if x < x_len:
-                x += 1
-                standing = False
+            x += 2
+            if f_d_option:
+                floor -= 1
+
         
         if validCommand == False:
             print(f"│INVALID COMMAND")
-            standing = True
             input("│<")
