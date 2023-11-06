@@ -1,4 +1,4 @@
-import os, random, time, sys, keyboard, pyautogui
+import os, random, time, sys, pyautogui
 
 pyautogui.press('f11')
 
@@ -13,6 +13,9 @@ key2 = False
 secret1 = False
 secret2 = False
 blood_glasses = False
+
+roll = 0
+rollMod = 0
 
 searching = False
 
@@ -105,7 +108,7 @@ y_max = 18
 x_max = 21
 
 def drawMap():
-    global map, x, y, moveList, secret1, secret2, blood_glasses
+    global map, x, y, moveList, secret1, secret2, blood_glasses, roll, rollMod
     if secret1 == True and secret2 == True:
         blood_glasses = True
         secret1 = False
@@ -373,56 +376,70 @@ def drawMap():
             elif row_y == y and row_x == x and map[y][x] in moveList and not searching: print("X",end="")
             elif row_y == y+1 and row_x == x and searching:
                 if fullMap[y+1][x] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y-1 and row_x == x and searching:
                 if fullMap[y-1][x] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x+1 and searching:
                 if fullMap[y][x+1] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x-1 and searching:
                 if fullMap[y][x-1] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x+2 and searching:
                 if fullMap[y][x+2] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x-2 and searching:
                 if fullMap[y][x-2] == "*":
-                    print(f"\033[0;37;45m*\033[0m",end="")
-                    if row_y == 2:
-                        secret1 = True
-                    if row_y == 6:
-                        secret2 = True
+                    if roll+rollMod == 30:
+                        print(f"\033[0;37;45m*\033[0m",end="")
+                        if row_y == 2:
+                            secret1 = True
+                        if row_y == 6:
+                            secret2 = True
+                    else: print(f"\033[0;37;45m{column}\033[0m",end="")
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             else: print(column,end="")
             row_x += 1
         print()
         row_y += 1
+    roll = 0
+    rollMod = 0
 
 def clear():
     os.system("cls")
@@ -567,6 +584,11 @@ while run:
             draw(False)
             print(f"│BLOODGLASSES")    
         draw(False)
+
+        if roll > 0:
+            print(f"│YOU ROLLED A \033[1;32;40m{roll}+{rollMod} = {roll+rollMod}\033[0m")
+            draw(False)
+
         print(f"│\033[1;34;40m0\033[0m ━ SAVE AND QUIT")
         n_option = False
         s_option = False
@@ -603,7 +625,7 @@ while run:
         validCommand = False
         searching = False
 
-        if dest == "0":
+        if dest == "0":     
             validCommand = True
             save()
             play = False
@@ -612,6 +634,8 @@ while run:
             validCommand = True
             save()
             searching = True
+            roll = random.randint(1,20)
+            rollMod = Wit
         if dest == "W" and n_option == True:
             validCommand = True
             if map[y-1][x] in moveList: y -= 1
