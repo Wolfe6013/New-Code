@@ -376,7 +376,7 @@ def drawMap():
             elif row_y == y and row_x == x and map[y][x] in moveList and not searching: print("X",end="")
             elif row_y == y+1 and row_x == x and searching:
                 if fullMap[y+1][x] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -386,7 +386,7 @@ def drawMap():
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y-1 and row_x == x and searching:
                 if fullMap[y-1][x] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -396,7 +396,7 @@ def drawMap():
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x+1 and searching:
                 if fullMap[y][x+1] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -406,7 +406,7 @@ def drawMap():
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x-1 and searching:
                 if fullMap[y][x-1] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -416,7 +416,7 @@ def drawMap():
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x+2 and searching:
                 if fullMap[y][x+2] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -426,7 +426,7 @@ def drawMap():
                 else: print(f"\033[0;37;45m{column}\033[0m",end="")
             elif row_y == y and row_x == x-2 and searching:
                 if fullMap[y][x-2] == "*":
-                    if roll+rollMod == 30:
+                    if roll+rollMod >= 30:
                         print(f"\033[0;37;45m*\033[0m",end="")
                         if row_y == 2:
                             secret1 = True
@@ -438,8 +438,6 @@ def drawMap():
             row_x += 1
         print()
         row_y += 1
-    roll = 0
-    rollMod = 0
 
 def clear():
     os.system("cls")
@@ -588,6 +586,8 @@ while run:
         if roll > 0:
             print(f"│YOU ROLLED A \033[1;32;40m{roll}+{rollMod} = {roll+rollMod}\033[0m")
             draw(False)
+            roll = 0
+            rollMod = 0
 
         print(f"│\033[1;34;40m0\033[0m ━ SAVE AND QUIT")
         n_option = False
@@ -663,6 +663,7 @@ while run:
                     key2 = True
                     play = False
                     fight = True
+                    Speak = True
             else: key1 = True
             input("│<")
 
@@ -679,8 +680,105 @@ while run:
         draw(False)
         if bossFight: ...
         else:
-            print("│AS YOU PICK UP THE KEY, TWO \033[1;34;40mSKELETONS\033[0m WALK AROUND THE CORNER, AND READY THEIR WEAPONS.")
-            input("│<")
+            if Speak == True:
+                clear()
+                print("│AS YOU PICK UP THE KEY, TWO \033[1;34;40mSKELETONS\033[0m WALK AROUND THE CORNER, AND READY THEIR WEAPONS.")
+                input("│<")
+                Speak = False
             clear()
+            e_name = "\033[1;34;40mSKELETON 1\033[0m"
+            e_hp = 20
+            e_maxhp = e_hp
+            e_str = 10
+            e_dex = 12
+
+            e2_name = "\033[1;34;40mSKELETON 2\033[0m"
+            e2_hp = 20
+            e2_maxhp = e_hp
+            e2_str = 12
+            e2_dex = 10
+
             draw(False)
-            print("│YOU ARE BEING ATTACKED BY 2 \033[1;34;40mSKELETONS\033[0m!")
+            print(f"│\033[1;31;40m{name}\033[0m IS BEING ATTACKED BY 2 \033[1;34;40mSKELETONS\033[0m!")
+            draw(False)
+            print(f"│NAME: \033[1;31;40m{name}\033[0m")
+            print(f"│HP: \033[1;32;40m{HP}\033[0m/\033[1;32;40m{MaxHP}\033[0m")
+            print(f"│STRENGTH: \033[1;32;40m{Strength}\033[0m")
+            print(f"│MANA: \033[1;32;40m{Mana}\033[0m")
+            print(f"│WIT: \033[1;32;40m{Wit}\033[0m")
+            print(f"│DEXTERITY: \033[1;32;40m{Dexterity}\033[0m")
+            draw(False)
+            print(f"│NAME: {e_name}")
+            print(f"│HP: \033[1;32;40m{e_hp}\033[0m/\033[1;32;40m{e_maxhp}\033[0m")
+            print(f"│STRENGTH: \033[1;32;40m{e_str}\033[0m")
+            print(f"│MANA: \033[1;32;40m1\033[0m")
+            print(f"│WIT: \033[1;32;40m1\033[0m")
+            print(f"│DEXTERITY: \033[1;32;40m{e_dex}\033[0m")
+            draw(False)
+            print(f"│NAME: {e2_name}")
+            print(f"│HP: \033[1;32;40m{e2_hp}\033[0m/\033[1;32;40m{e2_maxhp}\033[0m")
+            print(f"│STRENGTH: \033[1;32;40m{e2_str}\033[0m")
+            print(f"│MANA: \033[1;32;40m1\033[0m")
+            print(f"│WIT: \033[1;32;40m1\033[0m")
+            print(f"│DEXTERITY: \033[1;32;40m{e2_dex}\033[0m")
+            draw(False)
+            print(f"│\033[1;31;40m{name}\033[0m DEXTERITY IS \033[1;32;40m{Dexterity}\033[0m")
+            print(f"│{e_name} DEXTERITY IS \033[1;32;40m{e_dex}\033[0m")
+            print(f"│{e2_name} DEXTERITY IS \033[1;32;40m{e2_dex}\033[0m")
+            print(f"│COMBAT ORDER IS: ",end="")
+            if Dexterity >= e_dex and Dexterity >= e2_dex:
+                print(f"\033[1;31;40m{name}\033[0m - ",end="")
+                if e_dex >= e2_dex:
+                    print(f"\033[1;34;40m{e_name}\033[0m - \033[1;34;40m{e2_name}\033[0m.")
+                else:
+                    print(f"\033[1;34;40m{e2_name}\033[0m - \033[1;34;40m{e_name}\033[0m.")
+            elif Dexterity >= e_dex or Dexterity >= e2_dex:
+                if e_dex >= e2_dex:
+                    print(f"\033[1;34;40m{e_name}\033[0m - ",end="")
+                else:
+                    print(f"\033[1;34;40m{e2_name}\033[0m - ",end="")
+                print(f"\033[1;31;40m{name}\033[0m - ",end="")
+                if e2_dex >= e_dex:
+                    print(f"\033[1;34;40m{e_name}\033[0m.")
+                else:
+                    print(f"\033[1;34;40m{e2_name}\033[0m.")
+            elif Dexterity < e_dex and Dexterity < e2_dex:
+                if e_dex >= e2_dex:
+                    print(f"\033[1;34;40m{e_name}\033[0m - \033[1;34;40m{e2_name}\033[0m - ",end="")
+                else:
+                    print(f"\033[1;34;40m{e2_name}\033[0m - \033[1;34;40m{e_name}\033[0m - ",end="")
+                print(f"\033[1;31;40m{name}\033[0m.")
+                
+            draw(False)
+            print(f"│\033[1;34;40m1 \033[0m━ ATTACK \033[1;34;40m{e_name}\033[0m")
+            print(f"│\033[1;34;40m2 \033[0m━ ATTACK \033[1;34;40m{e2_name}\033[0m")
+            print(f"│\033[1;34;40m3 \033[0m━ BLOCK")
+            print(f"│\033[1;34;40m4 \033[0m━ TRICK")
+            print(f"│\033[1;34;40m5 \033[0m━ RUN")
+            draw(False)
+            combatChoice = input("│>\033[1;34;40m")
+            print("\033[0m")
+            clear()
+            if combatChoice == "4":
+                enemyTrick = random.randint(1,20)
+                print(f"│{name} TELLS THE SKELETONS THAT THEY WORKS FOR THE WITCH.")
+                print(f"│{e_name} AND {e2_name} ROLLED A {enemyTrick}+1+1={enemyTrick+2}.")
+                print(f"│{name} WIT IS {Wit}.")
+                if Wit >= enemyTrick+2:
+                    print(f"│{e_name} AND {e2_name} FALL FOR THE TRICK AND LEAVE!")
+                    fight = False
+                    play = True
+                else: print(f"│{e_name} AND {e2_name} DON'T FALL FOR THE TRICK!")
+                input("│<")
+
+            if combatChoice == "5":
+                EscapeRoll = random.randint(1,20)
+                print(f"│{name} TRIES TO RUN AWAY.")
+                print(f"│{name} ROLLED A {EscapeRoll}+{Dexterity}={EscapeRoll+Dexterity}.")
+                print(f"│SKELETONS COMBINED DEXTERITY IS {e_dex+e2_dex}.")
+                if EscapeRoll+Dexterity >= e_dex+e2_dex:
+                    print(f"│{name} GOT AWAY!")
+                    fight = False
+                    play = True
+                else: print(f"│{name} FAILED TO GET AWAY!")
+                input("│<")
