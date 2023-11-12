@@ -8,12 +8,6 @@ play = False
 fight = False
 bossFight = False
 
-key1 = False
-key2 = False
-secret1 = False
-secret2 = False
-blood_glasses = False
-
 roll = 0
 rollMod = 0
 
@@ -109,10 +103,6 @@ x_max = 21
 
 def drawMap():
     global map, x, y, moveList, secret1, secret2, blood_glasses, roll, rollMod
-    if secret1 == True and secret2 == True:
-        blood_glasses = True
-        secret1 = False
-        secret2 = False
     if floor == 0 and not blood_glasses:
         map = ["  ┏━━━━━━━━━━━━┓     ",
                "  ┃            ┃     ",
@@ -131,7 +121,7 @@ def drawMap():
                "  ┃▲           +   ┃ ",
                "  ┗━━━━━━━━━━━━┻━━━┛ "]
 
-    if floor == 1 and not blood_glasses and not key1 and not secret1 and not secret2:
+    if floor == 1 and not blood_glasses and not key1:
         map = ["                     ",
                " ┏━━━━━━━━━━━━━┓     ",
                " ┃             ┃     ",
@@ -150,7 +140,7 @@ def drawMap():
                "      ┃▲       ┃     ",
                "      ┗━━━━━━━━┛     "]
 
-    if floor == 1 and not blood_glasses and key1 and not secret1 and not secret2:
+    if floor == 1 and not blood_glasses and key1:
         map = ["                     ",
                " ┏━━━━━━━━━━━━━┓     ",
                " ┃             ┃     ",
@@ -169,7 +159,7 @@ def drawMap():
                "      ┃▲       ┃     ",
                "      ┗━━━━━━━━┛     "]
 
-    if floor == 1 and blood_glasses and not key1 and not secret1 and not secret2:
+    if floor == 1 and blood_glasses and not key1:
         map = ["                     ",
                " ┏━━━━━━━━━━━━━┳━━━━┓",
                " ┃             *    ┃",
@@ -188,7 +178,7 @@ def drawMap():
                "      ┃▲       ┃     ",
                "      ┗━━━━━━━━┛     "]
 
-    if floor == 1 and blood_glasses and key1 and not secret1 and not secret2:
+    if floor == 1 and blood_glasses and key1:
         map = ["                     ",
                " ┏━━━━━━━━━━━━━┳━━━━┓",
                " ┃             *    ┃",
@@ -465,7 +455,7 @@ def save():
         str(secret1),
         str(secret2)]
 
-    f = open("load.txt","w")
+    f = open("save.txt","w")
     for item in statsList:
         f.write(item + "\n")
     f.close()
@@ -512,7 +502,7 @@ while run:
         if choice == "2":
             validChoice = True
             try:
-                f = open("load.txt","r")
+                f = open("save.txt","r")
                 load_list = f.readlines()
                 if len(load_list) == 15:
                     name = load_list[0][:-1]
@@ -530,6 +520,9 @@ while run:
                     key2 = bool(load_list[12][:-1])
                     secret1 = bool(load_list[13][:-1])
                     secret2 = bool(load_list[14][:-1])
+                    print(f"BloodGlasses is {type(blood_glasses)} and value is {blood_glasses}")
+                    print(f"Key is {type(key1)} and value is {key1}")
+                    input()
                     clear()
                     draw(False)
                     print(f"│WELCOME BACK \033[1;31;40m{name}\033[0m!")
@@ -572,13 +565,13 @@ while run:
         print(f"│MANA: \033[1;32;40m{Mana}\033[0m")
         print(f"│WIT: \033[1;32;40m{Wit}\033[0m")
         print(f"│DEXTERITY: \033[1;32;40m{Dexterity}\033[0m")
-        if key1:
+        if key1 == True:
             draw(False)
             print(f"│KEY 1")
-        if key2:
+        if key2 == True:
             draw(False)
             print(f"│KEY 2")
-        if blood_glasses:
+        if blood_glasses == True:
             draw(False)
             print(f"│BLOODGLASSES")    
         draw(False)
@@ -637,19 +630,23 @@ while run:
             roll = random.randint(1,20)
             rollMod = Wit
         if dest == "W" and n_option == True:
+            save()
             validCommand = True
             if map[y-1][x] in moveList: y -= 1
             else: y -= 2
         if dest == "S" and s_option == True:
+            save()
             validCommand = True
             if map[y+1][x] in moveList: y += 1
             else: y += 2
         if dest == "A" and w_option == True:
+            save()
             validCommand = True
             x -= 2
             if f_u_option:
                 floor += 1
         if dest == "D" and e_option == True:
+            save()
             validCommand = True
             x += 2
             if f_d_option:
