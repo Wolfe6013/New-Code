@@ -1,14 +1,10 @@
-import pyautogui
-import time
+import os, random, time, sys, pyautogui, keyboard
 
-print("3...")
-time.sleep(1)
-print("2...")
-time.sleep(1)
-print("1...")
-time.sleep(1)
-
-while True:
+def TakeCoords():
     x, y = pyautogui.position()
     print(f"Current Cursor Coordinates: x={x}, y={y}")
-    time.sleep(1)
+    time.sleep(0.1)
+
+keyboard.add_hotkey('c', TakeCoords)
+
+keyboard.wait()
