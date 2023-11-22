@@ -282,7 +282,7 @@ while True:
           print()
   
   if Check == "Speed Toggle":
-    if SlowMode == True: SlowMode = False
+    if SlowMode: SlowMode = False
     else: SlowMode = True
     print(SlowMode)
 
