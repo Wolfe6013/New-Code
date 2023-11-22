@@ -33,11 +33,11 @@ def Open_Code():
 
 def Shutdown():
     pyautogui.click(20, 1048)
-    time.sleep(0.01)
+    time.sleep(0.05)
     pyautogui.click(20, 1000)
-    time.sleep(0.01)
+    time.sleep(0.05)
     pyautogui.click(20, 877)
-    time.sleep(0.01)
+    time.sleep(0.05)
     pyautogui.click(20, 877)
 
 keyboard.add_hotkey('ctrl + 1', Code_Imports)
