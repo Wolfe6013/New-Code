@@ -20,8 +20,6 @@ while True:
     num4 = int(num4)
     numList = [num1,num2,num3,num4]
     found = False
-    if 0 in numList:
-        cantSymbol.append("/")
     for w in numList:
         for x in numList:
             for y in numList:
@@ -36,514 +34,706 @@ while True:
                                 if num4 in digitList:
                                     digitList.remove(num4)
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w+x+y+z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}+{y}+{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w+x+y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}+{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w+x+y*z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}+{y}*{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w+x+y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}+{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w+x+y-z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}+{y}-{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w+x+y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}+{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w+x+y/z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}+{y}/{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w+x+y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}+{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w+x*y+z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}*{y}+{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w+x*y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}*{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w+x*y*z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}*{y}*{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w+x*y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}*{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w+x*y-z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}*{y}-{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w+x*y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}*{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w+x*y/z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}*{y}/{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w+x*y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}*{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w+x-y+z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}-{y}+{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w+x-y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}-{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w+x-y*z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}-{y}*{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w+x-y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}-{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w+x-y-z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}-{y}-{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w+x-y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}-{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w+x-y/z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}-{y}/{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w+x-y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}-{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w+x/y+z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}/{y}+{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w+x/y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}/{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w+x/y*z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}/{y}*{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w+x/y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}/{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w+x/y-z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}/{y}-{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w+x/y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}/{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '+' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w+x/y/z == 10:
-                                                        clear()
-                                                        print(f'{w}+{x}/{y}/{z} = 10')
-                                                        found = True
+                                        if '+' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '+' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w+x/y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}+{x}/{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w*x+y+z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}+{y}+{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w*x+y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}+{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w*x+y*z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}+{y}*{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w*x+y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}+{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w*x+y-z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}+{y}-{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w*x+y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}+{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w*x+y/z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}+{y}/{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w*x+y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}+{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w*x*y+z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}*{y}+{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w*x*y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}*{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w*x*y*z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}*{y}*{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w*x*y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}*{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w*x*y-z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}*{y}-{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w*x*y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}*{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w*x*y/z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}*{y}/{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w*x*y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}*{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w*x-y+z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}-{y}+{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w*x-y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}-{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w*x-y*z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}-{y}*{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w*x-y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}-{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w*x-y-z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}-{y}-{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w*x-y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}-{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w*x-y/z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}-{y}/{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w*x-y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}-{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w*x/y+z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}/{y}+{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w*x/y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}/{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w*x/y*z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}/{y}*{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w*x/y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}/{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w*x/y-z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}/{y}-{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w*x/y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}/{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '*' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w*x/y/z == 10:
-                                                        clear()
-                                                        print(f'{w}*{x}/{y}/{z} = 10')
-                                                        found = True
+                                        if '*' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '*' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w*x/y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}*{x}/{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w-x+y+z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}+{y}+{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w-x+y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}+{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w-x+y*z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}+{y}*{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w-x+y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}+{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w-x+y-z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}+{y}-{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w-x+y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}+{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w-x+y/z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}+{y}/{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w-x+y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}+{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w-x*y+z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}*{y}+{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w-x*y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}*{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w-x*y*z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}*{y}*{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w-x*y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}*{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w-x*y-z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}*{y}-{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w-x*y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}*{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w-x*y/z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}*{y}/{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w-x*y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}*{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w-x-y+z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}-{y}+{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w-x-y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}-{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w-x-y*z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}-{y}*{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w-x-y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}-{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w-x-y-z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}-{y}-{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w-x-y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}-{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w-x-y/z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}-{y}/{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w-x-y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}-{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w-x/y+z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}/{y}+{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w-x/y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}/{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w-x/y*z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}/{y}*{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w-x/y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}/{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w-x/y-z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}/{y}-{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w-x/y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}/{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '-' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w-x/y/z == 10:
-                                                        clear()
-                                                        print(f'{w}-{x}/{y}/{z} = 10')
-                                                        found = True
+                                        if '-' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '-' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w-x/y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}-{x}/{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w/x+y+z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}+{y}+{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w/x+y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}+{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w/x+y*z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}+{y}*{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w/x+y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}+{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w/x+y-z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}+{y}-{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w/x+y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}+{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '+' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w/x+y/z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}+{y}/{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '+' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '+' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w/x+y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}+{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w/x*y+z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}*{y}+{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w/x*y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}*{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w/x*y*z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}*{y}*{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w/x*y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}*{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w/x*y-z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}*{y}-{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w/x*y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}*{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '*' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w/x*y/z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}*{y}/{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '*' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '*' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w/x*y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}*{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w/x-y+z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}-{y}+{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w/x-y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}-{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w/x-y*z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}-{y}*{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w/x-y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}-{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w/x-y-z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}-{y}-{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w/x-y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}-{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '-' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w/x-y/z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}-{y}/{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '-' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '-' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w/x-y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}-{y}/{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '+' not in cantSymbol:
-                                                    if w/x/y+z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}/{y}+{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '+' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '+' not in cantSymbol:
+                                                                if w/x/y+z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}/{y}+{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '*' not in cantSymbol:
-                                                    if w/x/y*z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}/{y}*{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '*' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '*' not in cantSymbol:
+                                                                if w/x/y*z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}/{y}*{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '-' not in cantSymbol:
-                                                    if w/x/y-z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}/{y}-{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '-' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '-' not in cantSymbol:
+                                                                if w/x/y-z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}/{y}-{z} = 10')
+                                                                    found = True
                                     if found == False:
-                                        if '/' not in cantSymbol:
-                                            if '/' not in cantSymbol:
-                                                if '/' not in cantSymbol:
-                                                    if w/x/y/z == 10:
-                                                        clear()
-                                                        print(f'{w}/{x}/{y}/{z} = 10')
-                                                        found = True
+                                        if '/' != '/' or x != 0:
+                                            if '/' != '/' or y != 0:
+                                                if '/' != '/' or z != 0:
+                                                    if '/' not in cantSymbol:
+                                                        if '/' not in cantSymbol:
+                                                            if '/' not in cantSymbol:
+                                                                if w/x/y/z == 10:
+                                                                    clear()
+                                                                    print(f'{w}/{x}/{y}/{z} = 10')
+                                                                    found = True
