@@ -28,5 +28,3 @@ keyboard.add_hotkey('ctrl + 3', Open_File)
 keyboard.add_hotkey('ctrl + 9', Shutdown)
 
 keyboard.wait()
-
-#
