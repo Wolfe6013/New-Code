@@ -9,10 +9,11 @@ def Open_File():
     keyboard.release('ctrl')
     pyautogui.hotkey('winleft', 'e')
 
-def Open_Word():
+def Open_Excel():
     pyautogui.click(80, 1050)
+    
     time.sleep(0.5)
-    pyautogui.write("word")
+    pyautogui.write("excel")
     pyautogui.press("enter")
 
 def Open_Code():
@@ -43,7 +44,7 @@ def Shutdown():
 keyboard.add_hotkey('ctrl + 1', Code_Imports)
 keyboard.add_hotkey('ctrl + 2', Open_File)
 keyboard.add_hotkey('ctrl + 3', Open_Code)
-keyboard.add_hotkey('ctrl + 4', Open_Word)
+keyboard.add_hotkey('ctrl + 4', Open_Excel)
 
 keyboard.add_hotkey('ctrl + 9', Shutdown)
 
