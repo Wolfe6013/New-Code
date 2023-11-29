@@ -1,4 +1,4 @@
-import os, random, time, sys, pyautogui
+import os, random, time, sys, pyautogui, keyboard
 
 pyautogui.press('f11')
 
@@ -61,77 +61,134 @@ def statCustom():
         print(f"│{Cyan}0{End} TO CONTINUE (MAKE SURE TO USE ALL YOUR POINTS)")
         draw(False)
         pointChange = input(f"│>{Cyan}")
-        print(f"{End}")
+        draw(True)
         validCommand = False
         if pointChange == "0":
             validCommand = True
             if points > 0:
-                y_n = input(f"YOU HAVE {points} POINTS REMAINING. DO YOU WISH TO CONTINUE (Y/N)? ")
+                if points == 1:
+                    y_n = input(f"│YOU HAVE {points} POINT   REMAINING. DO YOU WISH TO CONTINUE (Y/N)? ")
+                else:
+                    y_n = input(f"│YOU HAVE {points} POINTS REMAINING. DO YOU WISH TO CONTINUE (Y/N)? ")
                 if y_n == 'Y' or y_n == 'y':
                     changingStats = False
-        if pointChange == "W1" and Strength > 5:
+            else:
+                changingStats = False
+        if pointChange == "S1" and Strength > 5:
             validCommand = True
             points += 1
             Strength -= 1
-        if pointChange == "W2" and Mana > 5:
+        if pointChange == "S2" and Mana > 5:
             validCommand = True
             points += 1
             Mana -= 1
-        if pointChange == "W3" and Wit > 5:
+        if pointChange == "S3" and Wit > 5:
             validCommand = True
             points += 1
             Wit -= 1
-        if pointChange == "W4" and Dexterity > 5:
+        if pointChange == "S4" and Dexterity > 5:
             validCommand = True
             points += 1
             Dexterity -= 1
-        if pointChange == "S1" and Strength < 15 and points > 0:
+        if pointChange == "W1" and Strength < 15 and points > 0:
             validCommand = True
             points -= 1
             Strength += 1
-        if pointChange == "S2" and Mana < 15 and points > 0:
+        if pointChange == "W2" and Mana < 15 and points > 0:
             validCommand = True
             points -= 1
             Mana += 1
-        if pointChange == "S3" and Wit < 15 and points > 0:
+        if pointChange == "W3" and Wit < 15 and points > 0:
             validCommand = True
             points -= 1
             Wit += 1
-        if pointChange == "S4" and Dexterity < 15 and points > 0:
+        if pointChange == "W4" and Dexterity < 15 and points > 0:
             validCommand = True
             points -= 1
             Dexterity += 1
         if not validCommand:
             print(f"│THAT IS NOT A VALID OPTION.")
-            input(f"│{Cyan}<")
-            print(f"{End}")
+            input(f"│<")
 
 #┣┫┳┻┿┏┓┗┛┃━
 
 y_max = 18
 x_max = 21
 
-def move(direction):
-    global x, y
-    if direction == 'N':
-        y -= 1
-    elif direction == 'S':
-        y += 1
-    elif direction == 'E':
-        x -= 1
-    elif direction == 'W':
-        x += 1
+def fightSelectUp():
+    global fightOptionSelected
+    fightOptionSelected -= 1
 
-def damage(atker,atked,dodge,atk,hp):
+def fightSelectDown():
+    global fightOptionSelected
+    fightOptionSelected += 1
+
+def moveW():
+    global x, y, validCommand, moveList
+    validCommand = True
+    if map[y-1][x] in moveList: y -= 1
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+    
+def moveS():
+    global x, y, validCommand, moveList
+    validCommand = True
+    if map[y+1][x] in moveList: y += 1
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+
+def moveA():
+    global x, y, validCommand, moveList, f_u_option, floor
+    validCommand = True
+    x -= 2
+    if f_u_option:
+        floor += 1
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+
+def moveD():
+    global x, y, validCommand, moveList, f_u_option, floor
+    validCommand = True
+    x += 2
+    if f_d_option:
+        floor -= 1
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+
+def search():
+    global searching, roll, rollMod, Wit
+    validCommand = True
+    searching = True
+    roll = random.randint(1,20)
+    rollMod = Wit
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+
+def play0():
+    global play, menu
+    validCommand = True
+    save()
+    play = False
+    menu = True
+    keyboard.unhook_all_hotkeys()
+    time.sleep(0.1)
+
+def fight(atker,atked,dodge,atk,hp):
     draw(False)
     roll = random.randint(1,20)
-    print(f"│{atker} ATTACKS {atked}!\n│{atker} ROLLED A {roll}+{atk}={roll+atk} TO HIT {atked}!")
-    hp -= damage
-    if hp < 0:
-        hp = 0
+    print(f"│{atker} ATTACKS {atked}!\n│{atker} ROLLED A {Green}{roll}{End}+{Green}{atk}{End}={Green}{roll+atk}{End} TO HIT {atked}!\n│{atked} HAS A DODGE CHANCE OF {Green}{dodge}{End}!")
+    if dodge > roll+atk:
+        print(f"│IT MISSED!")
+    else:
+        print(f"│IT HIT FOR {atk} DAMAGE!")
+        hp -= damage
+        if hp < 0:
+            hp = 0
+            print(f"│{atked} IS SLAIN!")
+    draw(False)
 
 def drawMap():
-    global map, x, y, moveList, secret1, secret2, blood_glasses, roll, rollMod
+    global map, x, y, moveList, secret1, secret2, blood_glasses, roll, rollMod, searching
     if secret1 == 1 and secret2 == 1:
         blood_glasses = 1
         secret1 = 0
@@ -467,6 +524,7 @@ def drawMap():
             row_x += 1
         print()
         row_y += 1
+    searching = False
 
 def clear():
     os.system("cls")
@@ -534,7 +592,8 @@ while run:
             menu = False
             play = True
             draw(True)
-            print(f"│WELCOME {Red}{name}{End}!")
+            name = f"\033[1;31;40m{name}\033[0m"
+            print(f"│WELCOME {name}!")
             draw(False)
             input(f"│<")
             statCustom()
@@ -563,7 +622,7 @@ while run:
                     godVisit = int(load_list[15][:-1])
                     clear()
                     draw(False)
-                    print(f"│WELCOME BACK {Red}{name}{End}!")
+                    print(f"│WELCOME BACK {name}!")
                     draw(False)
                     input(f"│<")
                     menu = False
@@ -585,11 +644,6 @@ while run:
             validCommand = True
             clear()
             quit()
-
-        if validCommand == False:
-            print(f"│THAT IS NOT A VALID CHOICE. ONLY TYPE THE NUMBER OF THE OPTION YOU WISH TO PICK.")
-            input(f"│<")
-
     while play:
         if godVisit == 0:
             clear()
@@ -598,7 +652,7 @@ while run:
             draw(False)
             drawMap()
             draw(False)
-            print(f"│NAME: {Red}{name}{End}")
+            print(f"│NAME: {name}")
             print(f"│HP: {Green}{HP}{End}/{Green}{MaxHP}{End}")
             print(f"│STRENGTH: {Green}{Strength}{End}")
             print(f"│MANA: {Green}{Mana}{End}")
@@ -626,70 +680,34 @@ while run:
             s_option = False
             e_option = False
             w_option = False
-
             f_u_option = False
             f_d_option = False
+            keyboard.add_hotkey('0', play0)
+            keyboard.add_hotkey('1', search)
 
             if map[y-1][x] in moveList and y > 0:
                 print(f"│{Cyan}W {End}━ NORTH")
-                n_option = True
+                keyboard.add_hotkey('W', moveW)
             if map[y+1][x] in moveList and y < y_max:
                 print(f"│{Cyan}S {End}━ SOUTH")
-                s_option = True
+                keyboard.add_hotkey('S', moveS)
             if map[y][x-2] in moveList and map[y][x-1] in moveList and x-1 > 0:
                 print(f"│{Cyan}A {End}━ WEST")
-                w_option = True
+                keyboard.add_hotkey('A', moveA)
             if map[y][x-1] == "▲" and not w_option:
                 print(f"│{Cyan}A {End}━ WEST")
                 f_u_option = True
-                w_option = True
+                keyboard.add_hotkey('A', moveA)
             if map[y][x+2] in moveList and map[y][x+1] in moveList and x+1 < x_max:
                 print(f"│{Cyan}D {End}━ EAST")
-                e_option = True
+                keyboard.add_hotkey('D', moveD)
             if map[y][x+1] == "▼" and not e_option:
                 print(f"│{Cyan}D {End}━ EAST")
                 f_d_option = True
-                e_option = True
+                keyboard.add_hotkey('D', moveD)
             print(f"│{Cyan}1 {End}━ SEARCH")
             draw(False)
-            dest = input(f"│>{Cyan}")
-            print(f"{End}│")
-            validCommand = False
-            searching = False
-
-            if dest == "0":     
-                validCommand = True
-                save()
-                play = False
-                menu = True
-            if dest == "1":
-                validCommand = True
-                save()
-                searching = True
-                roll = random.randint(1,20)
-                rollMod = Wit
-            if dest == "W" and n_option == True:
-                save()
-                validCommand = True
-                if map[y-1][x] in moveList: y -= 1
-                else: y -= 2
-            if dest == "S" and s_option == True:
-                save()
-                validCommand = True
-                if map[y+1][x] in moveList: y += 1
-                else: y += 2
-            if dest == "A" and w_option == True:
-                save()
-                validCommand = True
-                x -= 2
-                if f_u_option:
-                    floor += 1
-            if dest == "D" and e_option == True:
-                save()
-                validCommand = True
-                x += 2
-                if f_d_option:
-                    floor -= 1
+            keyboard.read_key()
 
             if map[y][x] == "k":
                 print(f"│YOU FOUND A {Purple}KEY{End}!")
@@ -699,7 +717,9 @@ while run:
                         key2 = 1
                         play = False
                         fight = True
-                        Speak = True
+                        save()
+                        fightOptionSelected = 1
+                        fightID = 1
                 else: key1 = 1
                 input(f"│<")
 
@@ -710,13 +730,272 @@ while run:
 
             if map[y][x] == "~":
                 fight = True
-                bossFight = True
-                mapWalk = True
+                save()
+                fightOptionSelected = 1
+                fightID = 2
                 play = False
+    while fight:
+        clear()
+        draw(False)
+        if fightID == 1:
+            print(f"│{name} IS BEING ATTACKED BY 2 {Blue}SKELETONS{End}!")
 
-            if validCommand == False:
-                print(f"│INVALID COMMAND")
-                input(f"│<")
+            e_name = f"{Blue}SKELETON 1{End}"
+            e_hp = 20
+            e_maxhp = e_hp
+            e_str = 10
+            e_dex = 12
+
+            e2_name = f"{Blue}SKELETON 2{End}"
+            e2_hp = 20
+            e2_maxhp = e_hp
+            e2_str = 12
+            e2_dex = 10
+        elif fightID == 2:
+            print(f"│{name} IS BEING ATTACKED BY AN UNFINISHED WITCH!")
+
+            e_name = f"{Gray}WITCH{End}"
+            e_hp = 20
+            e_maxhp = e_hp
+            e_str = 10
+            e_dex = 12
+
+            e2_name = f"{Blue}N/A{End}"
+            e2_hp = 0
+            e2_maxhp = e_hp
+            e2_str = 0
+            e2_dex = 0
+        else:
+            print(f"│{name} IS BEING ATTACKED BY A GLITCH! IT BROKE! FUCK! RELOAD YOUR GAME...")
+
+            e_name = f"{Blue}GLITCH{End}"
+            e_hp = 9999999999
+            e_maxhp = e_hp+1
+            e_str = 9999999999
+            e_dex = 9999999999
+
+            e2_name = f"{Blue}GLITCH{End}"
+            e2_hp = 9999999999
+            e2_maxhp = e2_hp+1
+            e2_str = 9999999999
+            e2_dex = 9999999999
+        keyboard.unhook_all_hotkeys()
+        draw(False)
+        print(f"│NAME: {name}")
+        print(f"│HP: {Green}{HP}{End}/{Green}{MaxHP}{End}")
+        print(f"│STRENGTH: {Green}{Strength}{End}")
+        print(f"│MANA: {Green}{Mana}{End}")
+        print(f"│WIT: {Green}{Wit}{End}")
+        print(f"│DEXTERITY: {Green}{Dexterity}{End}")
+        draw(False)
+        if e_hp > 0:
+            print(f"│NAME: {e_name}")
+            print(f"│HP: {Green}{e_hp}{End}/{Green}{e_maxhp}{End}")
+            print(f"│STRENGTH: {Green}{e_str}{End}")
+            print(f"│MANA: {Green}1{End}")
+            print(f"│WIT: {Green}1{End}")
+            print(f"│DEXTERITY: {Green}{e_dex}{End}")
+            draw(False)
+        if e2_hp > 0:
+            print(f"│NAME: {e2_name}")
+            print(f"│HP: {Green}{e2_hp}{End}/{Green}{e2_maxhp}{End}")
+            print(f"│STRENGTH: {Green}{e2_str}{End}")
+            print(f"│MANA: {Green}1{End}")
+            print(f"│WIT: {Green}1{End}")
+            print(f"│DEXTERITY: {Green}{e2_dex}{End}")
+            draw(False)
+        print(f"│{name} DEXTERITY IS {Green}{Dexterity}{End}")
+        if e_hp > 0:
+            print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}")
+        if e2_hp > 0:
+            print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}")
+        print(f"│COMBAT ORDER IS: ",end="")
+        if HP > 0 and e_hp > 0 and e2_hp > 0:
+            if Dexterity >= e_dex and Dexterity >= e2_dex:
+                print(f"{name} - ",end="")
+                CO1 = "P1"
+                if e_dex >= e2_dex:
+                    print(f"{e_name} - {e2_name}.")
+                    CO2 = "E1"
+                    CO3 = "E2"
+                else:
+                    print(f"{e2_name} - {e_name}.")
+                    CO2 = "E2"
+                    CO3 = "E1"
+            elif Dexterity >= e_dex or Dexterity >= e2_dex:
+                CO2 = "P1"
+                if e_dex >= e2_dex:
+                    print(f"{e_name} - ",end="")
+                    CO1 = "E1"
+                    CO3 = "E2"
+                else:
+                    print(f"{e2_name} - ",end="")
+                    CO1 = "E2"
+                    CO3 = "E1"
+                print(f"{name} - ",end="")
+                if e2_dex >= e_dex*2:
+                    print(f"{e_name}.")
+                else:
+                    print(f"{e2_name}.")
+            elif Dexterity < e_dex and Dexterity < e2_dex:
+                CO3 = "P1"
+                if e_dex >= e2_dex:
+                    print(f"{e_name} - {e2_name} - ",end="")
+                    CO1 = "E1"
+                    CO2 = "E2"
+                else:
+                    print(f"{e2_name} - {e_name} - ",end="")
+                    CO1 = "E2"
+                    CO2 = "E1"
+                print(f"{name}.")
+        if HP > 0 and e_hp <= 0 and e2_hp > 0:
+            if Dexterity >= e2_dex: print(f"{name} - {e2_name}.")
+            else: print(f"{e2_name} - {name}.")
+        if HP > 0 and e_hp > 0 and e2_hp <= 0:
+            if Dexterity >= e_dex: print(f"{name} - {e_name}.")
+            else: print(f"{e_name} - {name}.")
+        draw(False)
+        if e_hp > 0:
+            print(f"│ATTACK {e_name}",end="")
+        if fightOptionSelected == 1:
+            print(" ◄─")
+            keyboard.add_hotkey("down",fightSelectDown)
+        elif fightOptionSelected < 1:
+            print(" ◄─")
+            keyboard.add_hotkey("down",fightSelectDown)
+            fightOptionSelected = 1
+        if e2_hp > 0:
+            print(f"│ATTACK {e2_name}",end="")
+        if fightOptionSelected == 2:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+            keyboard.add_hotkey("down",fightSelectDown)
+        else:
+            print()
+        if e_hp > 0:
+            print(f"│MAGIC ATTACK {e_name}",end="")
+        if fightOptionSelected == 3:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+            keyboard.add_hotkey("down",fightSelectDown)
+        else:
+            print()
+        if e2_hp > 0:
+            print(f"│MAGIC ATTACK {e2_name}",end="")
+        if fightOptionSelected == 4:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+            keyboard.add_hotkey("down",fightSelectDown)
+        else:
+            print()
+        print(f"│TRICK",end="")
+        if fightOptionSelected == 5:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+            keyboard.add_hotkey("down",fightSelectDown)
+        else:
+            print()
+        print(f"│RUN",end="")
+        if fightOptionSelected == 6:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+        elif fightOptionSelected > 6:
+            print(" ◄─")
+            keyboard.add_hotkey("up",fightSelectUp)
+            fightOptionSelected = 6
+        else:
+            print()
+        draw(False)
+        KEY = keyboard.read_key()
+        if KEY == "enter":
+            input()
+            clear()
+            if fightOptionSelected == 1:
+                if CO1 == "P1" and HP > 0 and e_hp > 0:
+                    fight(name,e_name,e_dex*2,Strength,e_hp)
+                elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                    fight(e_name,name,Dexterity*2,e_dex,HP)
+                elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if CO2 == "P1" and HP > 0 and e_hp > 0:
+                    fight(name,e_name,e_dex*2,Strength,e_hp)
+                elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                    fight(e_name,name,Dexterity*2,e_dex,HP)
+                elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if CO3 == "P1" and HP > 0 and e_hp > 0:
+                    fight(name,e_name,e_dex*2,Strength,e_hp)
+                elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                    fight(e_name,name,Dexterity*2,e_dex,HP)
+                elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
+            if fightOptionSelected == 2:
+            if fightOptionSelected == 3:
+            if fightOptionSelected == 4:
+            if fightOptionSelected == 5:
+                enemyTrick = random.randint(1,20)
+                if e_hp > 0 and e2_hp > 0:
+                    print(f"│{Red}{name}{End} TELLS THE {Blue}SKELETONS{End} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                    print(f"│{e_name} AND {e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}+{Green}1{End}={Green}{enemyTrick+2}{End}.")
+                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                    if Wit >= enemyTrick+2:
+                        print(f"│{e_name} AND {e2_name} FALL FOR THE TRICK AND LEAVE!")
+                        fight = False
+                        play = True
+                    else: print(f"│{e_name} AND {e2_name} DON'T FALL FOR THE TRICK!")
+                    input(f"│<")
+                elif e_hp > 0 and e2_hp <= 0:
+                    print(f"│{Red}{name}{End} TELLS {e_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                    print(f"│{e_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
+                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                    if Wit >= enemyTrick+1:
+                        print(f"│{e_name} FALLS FOR THE TRICK AND LEAVE!")
+                        fight = False
+                        play = True
+                    else: print(f"│{e_name} DOESN'T FALL FOR THE TRICK!")
+                    input(f"│<")
+                elif e_hp <= 0 and e2_hp > 0:
+                    print(f"│{Red}{name}{End} TELLS {e2_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                    print(f"│{e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
+                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                    if Wit >= enemyTrick+1:
+                        print(f"│{e2_name} FALLS FOR THE TRICK AND LEAVE!")
+                        fight = False
+                        play = True
+                    else: print(f"│{e2_name} DOESN'T FALL FOR THE TRICK!")
+                    input(f"│<")
+            if fightOptionSelected == 6:
+                EscapeRoll = random.randint(1,20)
+                if e_hp > 0 and e2_hp > 0:
+                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                    print(f"│{Blue}SKELETONS{End} COMBINED DEXTERITY IS {Green}{e_dex+e2_dex}{End}.")
+                    if EscapeRoll+Dexterity >= e_dex+e2_dex:
+                        print(f"│{Red}{name}{End} GOT AWAY!")
+                        fight = False
+                        play = True
+                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    input(f"│<")
+                elif e_hp > 0 and e2_hp <= 0:
+                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                    print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}.")
+                    if EscapeRoll+Dexterity >= e_dex:
+                        print(f"│{Red}{name}{End} GOT AWAY!")
+                        fight = False
+                        play = True
+                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    input(f"│<")
+                elif e_hp <= 0 and e2_hp > 0:
+                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                    print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}.")
+                    if EscapeRoll+Dexterity >= e2_dex:
+                        print(f"│{Red}{name}{End} GOT AWAY!")
+                        fight = False
+                        play = True
+                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    input(f"│<")
 
 if dead:
     clear()
