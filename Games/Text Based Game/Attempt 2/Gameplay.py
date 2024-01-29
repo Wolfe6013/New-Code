@@ -27,7 +27,7 @@ End = f"\033[0m"
 
 searching = False
 
-moveList = f"+","k","B","*"," ","~"
+moveList = "+","k","B","*"," ","~"
 
 #Gray: \033[1;30;40m \033[0m
 #Red: \033[1;31;40m \033[0m
@@ -173,7 +173,8 @@ def play0():
     keyboard.unhook_all_hotkeys()
     time.sleep(0.1)
 
-def fight(atker,atked,dodge,atk,hp):
+def calFight(atker,atked,dodge,atk,hp):
+    global name, e_name, e2_name, HP, e_hp, e2_hp, Strength, Mana, e_str, e2_str
     draw(False)
     roll = random.randint(1,20)
     print(f"│{atker} ATTACKS {atked}!\n│{atker} ROLLED A {Green}{roll}{End}+{Green}{atk}{End}={Green}{roll+atk}{End} TO HIT {atked}!\n│{atked} HAS A DODGE CHANCE OF {Green}{dodge}{End}!")
@@ -181,11 +182,21 @@ def fight(atker,atked,dodge,atk,hp):
         print(f"│IT MISSED!")
     else:
         print(f"│IT HIT FOR {atk} DAMAGE!")
-        hp -= damage
-        if hp < 0:
-            hp = 0
-            print(f"│{atked} IS SLAIN!")
-    draw(False)
+        if str(name) == str(atked):
+            HP -= atk
+            if HP <= 0:
+                HP = 0
+                print(f"│{atked} IS SLAIN!")
+        if str(e_name) == str(atked):
+            e_hp -= atk
+            if e_hp <= 0:
+                e_hp = 0
+                print(f"│{atked} IS SLAIN!")
+        if str(e2_name) == str(atked):
+            e2_hp -= atk
+            if e2_hp <= 0:
+                e2_hp = 0
+                print(f"│{atked} IS SLAIN!")
 
 def drawMap():
     global map, x, y, moveList, secret1, secret2, blood_glasses, roll, rollMod, searching
@@ -645,141 +656,11 @@ while run:
             clear()
             quit()
     while play:
-        if godVisit == 0:
-            clear()
-            draw(False)
-            print(f"│LOCATION: FLOOR {floor}")
-            draw(False)
-            drawMap()
-            draw(False)
-            print(f"│NAME: {name}")
-            print(f"│HP: {Green}{HP}{End}/{Green}{MaxHP}{End}")
-            print(f"│STRENGTH: {Green}{Strength}{End}")
-            print(f"│MANA: {Green}{Mana}{End}")
-            print(f"│WIT: {Green}{Wit}{End}")
-            print(f"│DEXTERITY: {Green}{Dexterity}{End}")
-            if key1 == 1:
-                draw(False)
-                print(f"│KEY 1")
-            if key2 == 1:
-                draw(False)
-                print(f"│KEY 2")
-            if blood_glasses == 1:
-                draw(False)
-                print(f"│BLOODGLASSES")    
-            draw(False)
-
-            if roll > 0:
-                print(f"│YOU ROLLED A {Green}{roll}+{rollMod} = {roll+rollMod}{End}")
-                draw(False)
-                roll = 0
-                rollMod = 0
-
-            print(f"│{Cyan}0{End} ━ SAVE AND QUIT")
-            n_option = False
-            s_option = False
-            e_option = False
-            w_option = False
-            f_u_option = False
-            f_d_option = False
-            keyboard.add_hotkey('0', play0)
-            keyboard.add_hotkey('1', search)
-
-            if map[y-1][x] in moveList and y > 0:
-                print(f"│{Cyan}W {End}━ NORTH")
-                keyboard.add_hotkey('W', moveW)
-            if map[y+1][x] in moveList and y < y_max:
-                print(f"│{Cyan}S {End}━ SOUTH")
-                keyboard.add_hotkey('S', moveS)
-            if map[y][x-2] in moveList and map[y][x-1] in moveList and x-1 > 0:
-                print(f"│{Cyan}A {End}━ WEST")
-                keyboard.add_hotkey('A', moveA)
-            if map[y][x-1] == "▲" and not w_option:
-                print(f"│{Cyan}A {End}━ WEST")
-                f_u_option = True
-                keyboard.add_hotkey('A', moveA)
-            if map[y][x+2] in moveList and map[y][x+1] in moveList and x+1 < x_max:
-                print(f"│{Cyan}D {End}━ EAST")
-                keyboard.add_hotkey('D', moveD)
-            if map[y][x+1] == "▼" and not e_option:
-                print(f"│{Cyan}D {End}━ EAST")
-                f_d_option = True
-                keyboard.add_hotkey('D', moveD)
-            print(f"│{Cyan}1 {End}━ SEARCH")
-            draw(False)
-            keyboard.read_key()
-
-            if map[y][x] == "k":
-                print(f"│YOU FOUND A {Purple}KEY{End}!")
-                if key1 == 1:
-                    if key2 == 1: print(f"│{Red}CHEATER{End}")
-                    else:
-                        key2 = 1
-                        play = False
-                        fight = True
-                        save()
-                        fightOptionSelected = 1
-                        fightID = 1
-                else: key1 = 1
-                input(f"│<")
-
-            if map[y][x] == "B":
-                print(f"│FOUND {Purple}BLOOD GLASSES{End}!")
-                blood_glasses = 1
-                input(f"│<")
-
-            if map[y][x] == "~":
-                fight = True
-                save()
-                fightOptionSelected = 1
-                fightID = 2
-                play = False
-    while fight:
         clear()
         draw(False)
-        if fightID == 1:
-            print(f"│{name} IS BEING ATTACKED BY 2 {Blue}SKELETONS{End}!")
-
-            e_name = f"{Blue}SKELETON 1{End}"
-            e_hp = 20
-            e_maxhp = e_hp
-            e_str = 10
-            e_dex = 12
-
-            e2_name = f"{Blue}SKELETON 2{End}"
-            e2_hp = 20
-            e2_maxhp = e_hp
-            e2_str = 12
-            e2_dex = 10
-        elif fightID == 2:
-            print(f"│{name} IS BEING ATTACKED BY AN UNFINISHED WITCH!")
-
-            e_name = f"{Gray}WITCH{End}"
-            e_hp = 20
-            e_maxhp = e_hp
-            e_str = 10
-            e_dex = 12
-
-            e2_name = f"{Blue}N/A{End}"
-            e2_hp = 0
-            e2_maxhp = e_hp
-            e2_str = 0
-            e2_dex = 0
-        else:
-            print(f"│{name} IS BEING ATTACKED BY A GLITCH! IT BROKE! FUCK! RELOAD YOUR GAME...")
-
-            e_name = f"{Blue}GLITCH{End}"
-            e_hp = 9999999999
-            e_maxhp = e_hp+1
-            e_str = 9999999999
-            e_dex = 9999999999
-
-            e2_name = f"{Blue}GLITCH{End}"
-            e2_hp = 9999999999
-            e2_maxhp = e2_hp+1
-            e2_str = 9999999999
-            e2_dex = 9999999999
-        keyboard.unhook_all_hotkeys()
+        print(f"│LOCATION: FLOOR {floor}")
+        draw(False)
+        drawMap()
         draw(False)
         print(f"│NAME: {name}")
         print(f"│HP: {Green}{HP}{End}/{Green}{MaxHP}{End}")
@@ -787,215 +668,429 @@ while run:
         print(f"│MANA: {Green}{Mana}{End}")
         print(f"│WIT: {Green}{Wit}{End}")
         print(f"│DEXTERITY: {Green}{Dexterity}{End}")
-        draw(False)
-        if e_hp > 0:
-            print(f"│NAME: {e_name}")
-            print(f"│HP: {Green}{e_hp}{End}/{Green}{e_maxhp}{End}")
-            print(f"│STRENGTH: {Green}{e_str}{End}")
-            print(f"│MANA: {Green}1{End}")
-            print(f"│WIT: {Green}1{End}")
-            print(f"│DEXTERITY: {Green}{e_dex}{End}")
+        if key1 == 1:
             draw(False)
-        if e2_hp > 0:
-            print(f"│NAME: {e2_name}")
-            print(f"│HP: {Green}{e2_hp}{End}/{Green}{e2_maxhp}{End}")
-            print(f"│STRENGTH: {Green}{e2_str}{End}")
-            print(f"│MANA: {Green}1{End}")
-            print(f"│WIT: {Green}1{End}")
-            print(f"│DEXTERITY: {Green}{e2_dex}{End}")
+            print(f"│KEY 1")
+        if key2 == 1:
             draw(False)
-        print(f"│{name} DEXTERITY IS {Green}{Dexterity}{End}")
-        if e_hp > 0:
-            print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}")
-        if e2_hp > 0:
-            print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}")
-        print(f"│COMBAT ORDER IS: ",end="")
-        if HP > 0 and e_hp > 0 and e2_hp > 0:
-            if Dexterity >= e_dex and Dexterity >= e2_dex:
-                print(f"{name} - ",end="")
-                CO1 = "P1"
-                if e_dex >= e2_dex:
-                    print(f"{e_name} - {e2_name}.")
-                    CO2 = "E1"
-                    CO3 = "E2"
-                else:
-                    print(f"{e2_name} - {e_name}.")
-                    CO2 = "E2"
-                    CO3 = "E1"
-            elif Dexterity >= e_dex or Dexterity >= e2_dex:
-                CO2 = "P1"
-                if e_dex >= e2_dex:
-                    print(f"{e_name} - ",end="")
-                    CO1 = "E1"
-                    CO3 = "E2"
-                else:
-                    print(f"{e2_name} - ",end="")
-                    CO1 = "E2"
-                    CO3 = "E1"
-                print(f"{name} - ",end="")
-                if e2_dex >= e_dex*2:
-                    print(f"{e_name}.")
-                else:
-                    print(f"{e2_name}.")
-            elif Dexterity < e_dex and Dexterity < e2_dex:
-                CO3 = "P1"
-                if e_dex >= e2_dex:
-                    print(f"{e_name} - {e2_name} - ",end="")
-                    CO1 = "E1"
-                    CO2 = "E2"
-                else:
-                    print(f"{e2_name} - {e_name} - ",end="")
-                    CO1 = "E2"
-                    CO2 = "E1"
-                print(f"{name}.")
-        if HP > 0 and e_hp <= 0 and e2_hp > 0:
-            if Dexterity >= e2_dex: print(f"{name} - {e2_name}.")
-            else: print(f"{e2_name} - {name}.")
-        if HP > 0 and e_hp > 0 and e2_hp <= 0:
-            if Dexterity >= e_dex: print(f"{name} - {e_name}.")
-            else: print(f"{e_name} - {name}.")
+            print(f"│KEY 2")
+        if blood_glasses == 1:
+            draw(False)
+            print(f"│BLOODGLASSES")    
         draw(False)
-        if e_hp > 0:
-            print(f"│ATTACK {e_name}",end="")
-        if fightOptionSelected == 1:
-            print(" ◄─")
-            keyboard.add_hotkey("down",fightSelectDown)
-        elif fightOptionSelected < 1:
-            print(" ◄─")
-            keyboard.add_hotkey("down",fightSelectDown)
+
+        if roll > 0:
+            print(f"│YOU ROLLED A {Green}{roll}+{rollMod} = {roll+rollMod}{End}")
+            draw(False)
+            roll = 0
+            rollMod = 0
+
+        print(f"│{Cyan}0{End} ━ SAVE AND QUIT")
+        print(f"│{Cyan}1 {End}━ SEARCH")
+        print(f"│{Cyan}2 {End}━ SAVE")
+        n_option = False
+        s_option = False
+        e_option = False
+        w_option = False
+        f_u_option = False
+        f_d_option = False
+        keyboard.add_hotkey('0', play0)
+        keyboard.add_hotkey('1', search)
+        keyboard.add_hotkey('2', save)
+
+        if map[y-1][x] in moveList and y > 0:
+            print(f"│{Cyan}W {End}━ NORTH")
+            keyboard.add_hotkey('W', moveW)
+        if map[y+1][x] in moveList and y < y_max:
+            print(f"│{Cyan}S {End}━ SOUTH")
+            keyboard.add_hotkey('S', moveS)
+        if map[y][x-2] in moveList and map[y][x-1] in moveList and x-1 > 0:
+            print(f"│{Cyan}A {End}━ WEST")
+            keyboard.add_hotkey('A', moveA)
+        if map[y][x-1] == "▲" and not w_option:
+            print(f"│{Cyan}A {End}━ WEST")
+            f_u_option = True
+            keyboard.add_hotkey('A', moveA)
+        if map[y][x+2] in moveList and map[y][x+1] in moveList and x+1 < x_max:
+            print(f"│{Cyan}D {End}━ EAST")
+            keyboard.add_hotkey('D', moveD)
+        if map[y][x+1] == "▼" and not e_option:
+            print(f"│{Cyan}D {End}━ EAST")
+            f_d_option = True
+            keyboard.add_hotkey('D', moveD)
+        draw(False)
+        keyboard.read_key()
+
+        if map[y][x] == "k":
+            print(f"│YOU FOUND A {Purple}KEY{End}!")
+            if key1 == 1:
+                if key2 == 1: print(f"│{Red}CHEATER{End}")
+                else:
+                    key2 = 1
+                    play = False
+                    fight = True
+                    save()
+                    fightOptionSelected = 1
+                    fightID = 1
+            else: key1 = 1
+            save()
+            input(f"│<")
+
+        if map[y][x] == "B":
+            print(f"│FOUND {Purple}BLOOD GLASSES{End}!")
+            blood_glasses = 1
+            save()
+            input(f"│<")
+
+        if map[y][x] == "~":
+            fight = True
+            save()
             fightOptionSelected = 1
-        if e2_hp > 0:
-            print(f"│ATTACK {e2_name}",end="")
-        if fightOptionSelected == 2:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-            keyboard.add_hotkey("down",fightSelectDown)
-        else:
-            print()
-        if e_hp > 0:
-            print(f"│MAGIC ATTACK {e_name}",end="")
-        if fightOptionSelected == 3:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-            keyboard.add_hotkey("down",fightSelectDown)
-        else:
-            print()
-        if e2_hp > 0:
-            print(f"│MAGIC ATTACK {e2_name}",end="")
-        if fightOptionSelected == 4:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-            keyboard.add_hotkey("down",fightSelectDown)
-        else:
-            print()
-        print(f"│TRICK",end="")
-        if fightOptionSelected == 5:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-            keyboard.add_hotkey("down",fightSelectDown)
-        else:
-            print()
-        print(f"│RUN",end="")
-        if fightOptionSelected == 6:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-        elif fightOptionSelected > 6:
-            print(" ◄─")
-            keyboard.add_hotkey("up",fightSelectUp)
-            fightOptionSelected = 6
-        else:
-            print()
-        draw(False)
-        KEY = keyboard.read_key()
-        if KEY == "enter":
-            input()
+            fightID = 2
+            play = False
+    while fight:
+        if HP > 0:
             clear()
+            draw(False)
+            if fightID == 1:
+                print(f"│{name} IS BEING ATTACKED BY 2 {Blue}SKELETONS{End}!")
+
+                e_name = f"{Blue}SKELETON 1{End}"
+                e_hp = 20
+                e_maxhp = e_hp
+                e_str = 10
+                e_dex = 12
+
+                e2_name = f"{Blue}SKELETON 2{End}"
+                e2_hp = 20
+                e2_maxhp = e_hp
+                e2_str = 12
+                e2_dex = 10
+            elif fightID == 2:
+                print(f"│{name} IS BEING ATTACKED BY AN UNFINISHED WITCH!")
+
+                e_name = f"{Gray}WITCH{End}"
+                e_hp = 20
+                e_maxhp = e_hp
+                e_str = 10
+                e_dex = 12
+
+                e2_name = f"{Blue}N/A{End}"
+                e2_hp = 0
+                e2_maxhp = e_hp
+                e2_str = 0
+                e2_dex = 0
+            else:
+                print(f"│{name} IS BEING ATTACKED BY A GLITCH! IT BROKE! FUCK! RELOAD YOUR GAME...")
+
+                e_name = f"{Blue}GLITCH{End}"
+                e_hp = 9999999999
+                e_maxhp = e_hp+1
+                e_str = 9999999999
+                e_dex = 9999999999
+
+                e2_name = f"{Blue}GLITCH{End}"
+                e2_hp = 9999999999
+                e2_maxhp = e2_hp+1
+                e2_str = 9999999999
+                e2_dex = 9999999999
+            keyboard.unhook_all_hotkeys()
+            draw(False)
+            print(f"│NAME: {name}")
+            print(f"│HP: {Green}{HP}{End}/{Green}{MaxHP}{End}")
+            print(f"│STRENGTH: {Green}{Strength}{End}")
+            print(f"│MANA: {Green}{Mana}{End}")
+            print(f"│WIT: {Green}{Wit}{End}")
+            print(f"│DEXTERITY: {Green}{Dexterity}{End}")
+            draw(False)
+            if e_hp > 0:
+                print(f"│NAME: {e_name}")
+                print(f"│HP: {Green}{e_hp}{End}/{Green}{e_maxhp}{End}")
+                print(f"│STRENGTH: {Green}{e_str}{End}")
+                print(f"│MANA: {Green}1{End}")
+                print(f"│WIT: {Green}1{End}")
+                print(f"│DEXTERITY: {Green}{e_dex}{End}")
+                draw(False)
+            if e2_hp > 0:
+                print(f"│NAME: {e2_name}")
+                print(f"│HP: {Green}{e2_hp}{End}/{Green}{e2_maxhp}{End}")
+                print(f"│STRENGTH: {Green}{e2_str}{End}")
+                print(f"│MANA: {Green}1{End}")
+                print(f"│WIT: {Green}1{End}")
+                print(f"│DEXTERITY: {Green}{e2_dex}{End}")
+                draw(False)
+            print(f"│{name} DEXTERITY IS {Green}{Dexterity}{End}")
+            if e_hp > 0:
+                print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}")
+            if e2_hp > 0:
+                print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}")
+            print(f"│COMBAT ORDER IS: ",end="")
+            if HP > 0 and e_hp > 0 and e2_hp > 0:
+                if Dexterity >= e_dex and Dexterity >= e2_dex:
+                    print(f"{name} - ",end="")
+                    CO1 = "P1"
+                    if e_dex >= e2_dex:
+                        print(f"{e_name} - {e2_name}.")
+                        CO2 = "E1"
+                        CO3 = "E2"
+                    else:
+                        print(f"{e2_name} - {e_name}.")
+                        CO2 = "E2"
+                        CO3 = "E1"
+                elif Dexterity >= e_dex or Dexterity >= e2_dex:
+                    CO2 = "P1"
+                    if e_dex >= e2_dex:
+                        print(f"{e_name} - ",end="")
+                        CO1 = "E1"
+                        CO3 = "E2"
+                    else:
+                        print(f"{e2_name} - ",end="")
+                        CO1 = "E2"
+                        CO3 = "E1"
+                    print(f"{name} - ",end="")
+                    if e2_dex >= e_dex*2:
+                        print(f"{e_name}.")
+                    else:
+                        print(f"{e2_name}.")
+                elif Dexterity < e_dex and Dexterity < e2_dex:
+                    CO3 = "P1"
+                    if e_dex >= e2_dex:
+                        print(f"{e_name} - {e2_name} - ",end="")
+                        CO1 = "E1"
+                        CO2 = "E2"
+                    else:
+                        print(f"{e2_name} - {e_name} - ",end="")
+                        CO1 = "E2"
+                        CO2 = "E1"
+                    print(f"{name}.")
+            if HP > 0 and e_hp <= 0 and e2_hp > 0:
+                if Dexterity >= e2_dex: print(f"{name} - {e2_name}.")
+                else: print(f"{e2_name} - {name}.")
+            if HP > 0 and e_hp > 0 and e2_hp <= 0:
+                if Dexterity >= e_dex: print(f"{name} - {e_name}.")
+                else: print(f"{e_name} - {name}.")
+            draw(False)
+            if e_hp > 0:
+                print(f"│ATTACK {e_name}",end="")
             if fightOptionSelected == 1:
-                if CO1 == "P1" and HP > 0 and e_hp > 0:
-                    fight(name,e_name,e_dex*2,Strength,e_hp)
-                elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
-                    fight(e_name,name,Dexterity*2,e_dex,HP)
-                elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
-                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
-                if CO2 == "P1" and HP > 0 and e_hp > 0:
-                    fight(name,e_name,e_dex*2,Strength,e_hp)
-                elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
-                    fight(e_name,name,Dexterity*2,e_dex,HP)
-                elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
-                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
-                if CO3 == "P1" and HP > 0 and e_hp > 0:
-                    fight(name,e_name,e_dex*2,Strength,e_hp)
-                elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
-                    fight(e_name,name,Dexterity*2,e_dex,HP)
-                elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
-                    fight(e2_name,name,Dexterity*2,e2_dex,HP)
+                print(" ◄─")
+                keyboard.add_hotkey("down",fightSelectDown)
+            elif fightOptionSelected < 1:
+                print(" ◄─")
+                keyboard.add_hotkey("down",fightSelectDown)
+                fightOptionSelected = 1
+            else:
+                print()
+            if e2_hp > 0:
+                print(f"│ATTACK {e2_name}",end="")
             if fightOptionSelected == 2:
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+                keyboard.add_hotkey("down",fightSelectDown)
+            else:
+                print()
+            if e_hp > 0:
+                print(f"│MAGIC ATTACK {e_name}",end="")
             if fightOptionSelected == 3:
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+                keyboard.add_hotkey("down",fightSelectDown)
+            else:
+                print()
+            if e2_hp > 0:
+                print(f"│MAGIC ATTACK {e2_name}",end="")
             if fightOptionSelected == 4:
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+                keyboard.add_hotkey("down",fightSelectDown)
+            else:
+                print()
+            print(f"│TRICK",end="")
             if fightOptionSelected == 5:
-                enemyTrick = random.randint(1,20)
-                if e_hp > 0 and e2_hp > 0:
-                    print(f"│{Red}{name}{End} TELLS THE {Blue}SKELETONS{End} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
-                    print(f"│{e_name} AND {e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}+{Green}1{End}={Green}{enemyTrick+2}{End}.")
-                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
-                    if Wit >= enemyTrick+2:
-                        print(f"│{e_name} AND {e2_name} FALL FOR THE TRICK AND LEAVE!")
-                        fight = False
-                        play = True
-                    else: print(f"│{e_name} AND {e2_name} DON'T FALL FOR THE TRICK!")
-                    input(f"│<")
-                elif e_hp > 0 and e2_hp <= 0:
-                    print(f"│{Red}{name}{End} TELLS {e_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
-                    print(f"│{e_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
-                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
-                    if Wit >= enemyTrick+1:
-                        print(f"│{e_name} FALLS FOR THE TRICK AND LEAVE!")
-                        fight = False
-                        play = True
-                    else: print(f"│{e_name} DOESN'T FALL FOR THE TRICK!")
-                    input(f"│<")
-                elif e_hp <= 0 and e2_hp > 0:
-                    print(f"│{Red}{name}{End} TELLS {e2_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
-                    print(f"│{e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
-                    print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
-                    if Wit >= enemyTrick+1:
-                        print(f"│{e2_name} FALLS FOR THE TRICK AND LEAVE!")
-                        fight = False
-                        play = True
-                    else: print(f"│{e2_name} DOESN'T FALL FOR THE TRICK!")
-                    input(f"│<")
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+                keyboard.add_hotkey("down",fightSelectDown)
+            else:
+                print()
+            print(f"│RUN",end="")
             if fightOptionSelected == 6:
-                EscapeRoll = random.randint(1,20)
-                if e_hp > 0 and e2_hp > 0:
-                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
-                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
-                    print(f"│{Blue}SKELETONS{End} COMBINED DEXTERITY IS {Green}{e_dex+e2_dex}{End}.")
-                    if EscapeRoll+Dexterity >= e_dex+e2_dex:
-                        print(f"│{Red}{name}{End} GOT AWAY!")
-                        fight = False
-                        play = True
-                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
-                    input(f"│<")
-                elif e_hp > 0 and e2_hp <= 0:
-                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
-                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
-                    print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}.")
-                    if EscapeRoll+Dexterity >= e_dex:
-                        print(f"│{Red}{name}{End} GOT AWAY!")
-                        fight = False
-                        play = True
-                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
-                    input(f"│<")
-                elif e_hp <= 0 and e2_hp > 0:
-                    print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
-                    print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
-                    print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}.")
-                    if EscapeRoll+Dexterity >= e2_dex:
-                        print(f"│{Red}{name}{End} GOT AWAY!")
-                        fight = False
-                        play = True
-                    else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
-                    input(f"│<")
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+            elif fightOptionSelected > 6:
+                print(" ◄─")
+                keyboard.add_hotkey("up",fightSelectUp)
+                fightOptionSelected = 6
+            else:
+                print()
+            draw(False)
+            KEY = keyboard.read_key()
+            if KEY == "space":
+                clear()
+                if fightOptionSelected == 1:
+                    if CO1 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Strength,e_hp)
+                    elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Strength,e_hp)
+                    elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Strength,e_hp)
+                    elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if fightOptionSelected == 2:
+                    if CO1 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Strength,e2_hp)
+                    elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Strength,e2_hp)
+                    elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Strength,e2_hp)
+                    elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if fightOptionSelected == 3:
+                    if CO1 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Mana,e_hp)
+                    elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Mana,e_hp)
+                    elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e_name,e_dex*2,Mana,e_hp)
+                    elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if fightOptionSelected == 4:
+                    if CO1 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Mana,e2_hp)
+                    elif CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Mana,e2_hp)
+                    elif CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "P1" and HP > 0 and e_hp > 0:
+                        calFight(name,e2_name,e2_dex*2,Mana,e2_hp)
+                    elif CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if fightOptionSelected == 5:
+                    draw(False)
+                    enemyTrick = random.randint(1,20)
+                    if e_hp > 0 and e2_hp > 0:
+                        print(f"│{Red}{name}{End} TELLS THE {Blue}SKELETONS{End} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                        print(f"│{e_name} AND {e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}+{Green}1{End}={Green}{enemyTrick+2}{End}.")
+                        print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                        if Wit >= enemyTrick+2:
+                            print(f"│{e_name} AND {e2_name} FALL FOR THE TRICK AND LEAVE!")
+                            fight = False
+                            play = True
+                        else: print(f"│{e_name} AND {e2_name} DON'T FALL FOR THE TRICK!")
+                    elif e_hp > 0 and e2_hp <= 0:
+                        print(f"│{Red}{name}{End} TELLS {e_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                        print(f"│{e_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
+                        print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                        if Wit >= enemyTrick+1:
+                            print(f"│{e_name} FALLS FOR THE TRICK AND LEAVE!")
+                            fight = False
+                            play = True
+                        else: print(f"│{e_name} DOESN'T FALL FOR THE TRICK!")
+                    elif e_hp <= 0 and e2_hp > 0:
+                        print(f"│{Red}{name}{End} TELLS {e2_name} THAT THEY WORKS FOR THE {Gray}WITCH{End}.")
+                        print(f"│{e2_name} ROLLED A {Green}{enemyTrick}{End}+{Green}1{End}={Green}{enemyTrick+1}{End}.")
+                        print(f"│{Red}{name}{End} WIT IS {Green}{Wit}{End}.")
+                        if Wit >= enemyTrick+1:
+                            print(f"│{e2_name} FALLS FOR THE TRICK AND LEAVE!")
+                            fight = False
+                            play = True
+                        else: print(f"│{e2_name} DOESN'T FALL FOR THE TRICK!")
+                    if CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                if fightOptionSelected == 6:
+                    draw(False)
+                    EscapeRoll = random.randint(1,20)
+                    if e_hp > 0 and e2_hp > 0:
+                        print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                        print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                        print(f"│{Blue}SKELETONS{End} COMBINED DEXTERITY IS {Green}{e_dex+e2_dex}{End}.")
+                        if EscapeRoll+Dexterity >= e_dex+e2_dex:
+                            print(f"│{Red}{name}{End} GOT AWAY!")
+                            fight = False
+                            play = True
+                        else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    elif e_hp > 0 and e2_hp <= 0:
+                        print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                        print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                        print(f"│{e_name} DEXTERITY IS {Green}{e_dex}{End}.")
+                        if EscapeRoll+Dexterity >= e_dex:
+                            print(f"│{Red}{name}{End} GOT AWAY!")
+                            fight = False
+                            play = True
+                        else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    elif e_hp <= 0 and e2_hp > 0:
+                        print(f"│{Red}{name}{End} TRIES TO RUN AWAY.")
+                        print(f"│{Red}{name}{End} ROLLED A {Green}{EscapeRoll}{End}+{Green}{Dexterity}{End}={Green}{EscapeRoll+Dexterity}{End}.")
+                        print(f"│{e2_name} DEXTERITY IS {Green}{e2_dex}{End}.")
+                        if EscapeRoll+Dexterity >= e2_dex:
+                            print(f"│{Red}{name}{End} GOT AWAY!")
+                            fight = False
+                            play = True
+                        else: print(f"│{Red}{name}{End} FAILED TO GET AWAY!")
+                    if CO1 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO1 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO2 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO2 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                    if CO3 == "E1" and HP > 0 and e_hp > 0 and fight:
+                        calFight(e_name,name,Dexterity*2,e_dex,HP)
+                    elif CO3 == "E2" and HP > 0 and e2_hp > 0 and fight:
+                        calFight(e2_name,name,Dexterity*2,e2_dex,HP)
+                draw(False)
+                input(f"│<")
+        else:
+            dead = True
+            fight = False
 
 if dead:
     clear()
