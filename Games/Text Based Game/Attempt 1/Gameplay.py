@@ -2281,7 +2281,7 @@ while run:
                     play = False
                     fight = False
                     dead = True
-    
+
     while witchDead:
         print("│ITS DONE. BIT ANTICLIMATIC REALLY.")
         print("│WAIT",end="")
@@ -2439,7 +2439,6 @@ while run:
                 time.sleep(0.1)
             time.sleep(1)
             quit()
-            
 
 if dead:
     clear()
