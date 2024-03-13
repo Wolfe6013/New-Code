@@ -7,7 +7,7 @@ from random import choice, randint
 
 # STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
 load_dotenv()
-TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')
+TOKEN: Final[str] = os.getenv("DISCORD_TOKEN")
 
 # STEP 1: BOT SETUP
 intents: Intents = Intents.default()
@@ -17,10 +17,10 @@ client: Client = Client(intents=intents)
 # STEP 2: MESSAGE FUNCTIONALITY
 async def send_message(message: Message, user_message: str) -> None:
     if not user_message:
-        print('(Message was empty because intents were not enabled probably)')
+        print("(Message was empty because intents were not enabled probably)")
         return
 
-    if is_private := user_message[0] == '?':
+    if is_private := user_message[0] == "?":
         user_message = user_message[1:]
 
     try:
@@ -32,7 +32,7 @@ async def send_message(message: Message, user_message: str) -> None:
 # STEP 3: HANDLING THE STARTUP FOR OUR BOT
 @client.event
 async def on_ready() -> None:
-    print(f'{client.user} is now running!')
+    print(f"{client.user} is now running!")
 
 # STEP 4: HANDLING INCOMING MESSAGES
 @client.event
@@ -44,7 +44,7 @@ async def on_message(message: Message) -> None:
     user_message: str = message.content
     channel: str = str(message.channel)
 
-    print(f'[{channel}] {username}: "{user_message}"')
+    print(f"[{channel}] {username}: '{user_message}'")
     await send_message(message, user_message)
 
 # STEP 5: MAIN ENTRY POINT
