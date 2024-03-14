@@ -1,43 +1,141 @@
-import datetime,os
-
-users = [["Player1","Password",0,12,3,2024],
-    ["Player2","12345",4,13,3,24],
-    ["Player3","PaSsWoRd",9,1,3,2024]]
+from datetime import datetime
+from dateutil.parser import parse
+import os
 
 def clear():
     os.system("cls")
 
 def save():
+    global user_list
     f = open("EverydayLogin.txt","w")
-    for user in users:
+    for user in user_list:
         for variable in user:
-            f.write(f"{variable}")
-            if variable != user[-1]:
-                f.write(f";")
+            f.write(f"{variable};")
         f.write("\n")
     f.close()
 
 def load():
+    global user_list
     try:
-        f = open("save.txt","r")
+        f = open("EverydayLogin.txt","r")
         load_list = f.readlines()
         corrupt = False
         for user in load_list:
-            if len(user) != 6:
+            splitUser = user.split(";")
+            splitUser.pop(-1)
+            if len(splitUser) != 6:
                 corrupt = True
+            pos = load_list.index(user)
+            load_list[pos] = splitUser
         if not corrupt:
-            username = load_list[0][:-1]
-            password = int(load_list[1][:-1])
-            score = int(load_list[2][:-1])
-            day = int(load_list[3][:-1])
-            month = int(load_list[4][:-1])
-            year = int(load_list[5][:-1])
-            clear()
-            print(f"│WELCOME BACK {username}!")
-            input(f"│<")
+            user_list = load_list
+            return load_list
         else:
-            print(f"│CORRUPT SAVE FILE!")
-            input(f"│<")
+            print(f"CORRUPT SAVE FILE!")
+            input(f"<")
+            return "Corrupt"
     except OSError:
-        print(f"│NO LOADABLE SAVE FILE!")
-        input(f"│<")
+        print(f"NO LOADABLE SAVE FILE!")
+        input(f"<")
+        return "Corrupt"
+
+def login():
+    user_list = load()
+    if user_list != "Corrupt":
+        now: datetime = datetime.now()
+        #print(f"Today's date is: {now:%d/%m/%y}")
+        day_after = False
+        Day: int = f'{now:%d}'
+        Month: int = f'{now:%m}'
+        Year: int = f'{now:%y}'
+        current_user: str = input("Username: ")
+        current_password: str = input("Password: ")
+        correct_password: bool = False
+        logged_user: list = []
+
+        for user in user_list:
+            if user[0] == current_user and user[1] == current_password:
+                correct_password = True
+                logged_user: list = user
+        if correct_password:
+            format = '%d/%m/%y'
+            i = str(f"{logged_user[3]}/{logged_user[4]}/{logged_user[5]}")
+            original = datetime.strptime(i, format).date()
+            a = str(f"{Day}/{Month}/{Year}")
+            current = datetime.strptime(a, format).date()
+            difference = current - original
+            duration =  difference.days
+            if int(duration) == 1:
+                print(f"Score: {logged_user[2]}.\nLast Login Date: {logged_user[3]}/{logged_user[4]}/{logged_user[5]}.\nCurrent Date: {now:%d/%m/%y}\n")
+                logged_user[2] = int(logged_user[2])
+                logged_user[2] += 1
+                print(f"You've logged in {logged_user[2]} days in a row!\nLog in everyday to start a streak!\n")
+            elif int(duration) > 1:
+                logged_user[2] = 1
+                print(f"Score: {logged_user[2-1]}.\nLast Login Date: {logged_user[3]}/{logged_user[4]}/{logged_user[5]}.\nCurrent Date: {now:%d/%m/%y}\n")
+                print(f"This could be the first of many!")
+                print(f"It's been {int(duration)} days since you last logged in!\nLog in everyday to start a streak!\n")
+            elif int(duration) < 1:
+                print(f"Score: {logged_user[2]}.\nLast Login Date: {logged_user[3]}/{logged_user[4]}/{logged_user[5]}.\nCurrent Date: {now:%d/%m/%y}\n")
+                print(f"You have already logged in today!\nLog in tommorrow to continue your streak!\n")
+            if logged_user[3] != Day:
+                logged_user[3] = Day
+            if logged_user[4] != Month:
+                logged_user[4] = Month
+            if logged_user[5] != Year:
+                logged_user[5] = Year
+        else:
+            print(f"Wrong username or password!")
+
+def signup():
+    valid_user = False
+    while not valid_user:
+        valid_user = True
+        new_username: str = input("Username: ")
+        new_password: str = input("Password: ")
+        for user in user_list:
+            if user[0] == new_username:
+                print("Already a User with that Username!")
+                valid_user = False
+            if new_username == "":
+                print("Username requires at least one character!")
+                valid_user = False
+        if ";" in new_password:
+            valid_user = False
+            print("Password cannot contain the ';' character!")
+    now: datetime = datetime.now()
+    new_user = [new_username,new_password,'0',f'{now:%d}',f'{now:%m}',f'{now:%y}']
+    user_list.append(new_user)
+
+if __name__ == '__main__':
+    while True:
+        clear()
+        log_or_sign: str = "yes"
+        found = False
+        while not found:
+            log_or_sign: str = input("Login or Sign-Up? ")
+            log_or_sign.lower()
+            if log_or_sign == 'login':
+                user_login = True
+                user_sign_up = False
+                found = True
+            elif log_or_sign == 'sign-up':
+                user_login = False
+                user_sign_up = True
+                found = True
+            else:
+                input(f"{log_or_sign} is an invalid response. Please respond with 'Login' or 'Sign-Up'!")
+        clear()
+        while user_login:
+            clear()
+            login()
+            save()
+            yn: str = input(f"Login as a different User (y/n)? ")
+            yn.lower()
+            if yn == 'n':
+                user_login = False
+        if user_sign_up:
+            load()
+            signup()
+            save()
+        clear()
