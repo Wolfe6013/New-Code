@@ -104,7 +104,7 @@ def signup():
             valid_user = False
             print("Password cannot contain the ';' character!")
     now: datetime = datetime.now()
-    new_user = [new_username,new_password,'0',f'{now:%d}',f'{now:%m}',f'{now:%y}']
+    new_user = [new_username,new_password,'1',f'{now:%d}',f'{now:%m}',f'{now:%y}']
     user_list.append(new_user)
 
 if __name__ == '__main__':
@@ -114,12 +114,11 @@ if __name__ == '__main__':
         found = False
         while not found:
             log_or_sign: str = input("Login or Sign-Up? ")
-            log_or_sign.lower()
-            if log_or_sign == 'login':
+            if log_or_sign == 'Login':
                 user_login = True
                 user_sign_up = False
                 found = True
-            elif log_or_sign == 'sign-up':
+            elif log_or_sign == 'Sign-Up':
                 user_login = False
                 user_sign_up = True
                 found = True
