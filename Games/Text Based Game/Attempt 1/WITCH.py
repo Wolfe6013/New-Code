@@ -1,12 +1,12 @@
 import random, os, time, sys
 
 if not True:
-            #clear()
-            #draw(False)
-            print("THE \033[1;30;40mWITCH\033[0m APPEARS!")
-            #draw(False)
-            print("│<")
-            #time.sleep(1)
+    #clear()
+    #draw(False)
+    print("THE \033[1;30;40mWITCH\033[0m APPEARS!")
+    #draw(False)
+    print("│<")
+    #time.sleep(1)
 
 while True:
     while True:
