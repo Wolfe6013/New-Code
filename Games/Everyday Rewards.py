@@ -1,5 +1,6 @@
 from datetime import datetime
 from dateutil.parser import parse
+from EncoderDecoder import FullEncode, FullDecode
 import os
 
 def clear():
@@ -10,12 +11,13 @@ def save():
     f = open("EverydayLogin.txt","w")
     for user in user_list:
         for variable in user:
-            f.write(f"{variable};")
+            f.write(f"{FullEncode(variable)};")
         f.write("\n")
     f.close()
 
 def load():
     global user_list
+    user_list = []
     try:
         f = open("EverydayLogin.txt","r")
         load_list = f.readlines()
@@ -28,8 +30,12 @@ def load():
             pos = load_list.index(user)
             load_list[pos] = splitUser
         if not corrupt:
-            user_list = load_list
-            return load_list
+            for x in load_list:
+                z: list = []
+                for y in x:
+                    z.append(FullDecode(y))
+                user_list.append(z)
+            return user_list
         else:
             print(f"CORRUPT SAVE FILE!")
             input(f"<")
@@ -100,9 +106,12 @@ def signup():
             if new_username == "":
                 print("Username requires at least one character!")
                 valid_user = False
-        if ";" in new_password:
+        if " " in new_password:
             valid_user = False
-            print("Password cannot contain the ';' character!")
+            print("Password requires at least one character!")
+        if ";" in new_password or "\\" in new_password:
+            valid_user = False
+            print("Password cannot contain the ';' or '\\\' or speech mark or non-QWERTY layout characters!")
     now: datetime = datetime.now()
     new_user = [new_username,new_password,'1',f'{now:%d}',f'{now:%m}',f'{now:%y}']
     user_list.append(new_user)

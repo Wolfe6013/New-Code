@@ -1,9 +1,16 @@
 import random
 
-Alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-ChangeAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+Alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","!","@","#","$","%","^","&","*","(",")","-","_","+","=","`","~","[","]","{","}","|",":",",","<",".",">","/","?"," "]
+ChangeAlphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","!","@","#","$","%","^","&","*","(",")","-","_","+","=","`","~","[","]","{","}","|",":",",","<",".",">","/","?"," "]
+newAlphabet = []
 
 for x in Alphabet:
     change = random.choice(ChangeAlphabet)
-    print(f"{x} = {change}")
+    print(f"        elif letter == '{x}':")
+    print(f"            newWord.append('{change}')")
     ChangeAlphabet.remove(change)
+    newAlphabet.append(change)
+print()
+for x, y in enumerate(newAlphabet):
+    print(f"        elif letter == '{y}':")
+    print(f"            newWord.append('{Alphabet[x]}')")
