@@ -1,5 +1,4 @@
 from datetime import datetime
-from dateutil.parser import parse
 from EncoderDecoder import FullEncode, FullDecode
 import os
 
