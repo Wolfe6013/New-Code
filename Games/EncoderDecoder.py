@@ -183,6 +183,8 @@ def Encode(Word):
             newWord.append('X')
         elif letter == ' ':
             newWord.append('J')
+        elif letter == ";":
+            newWord.append(";")
     Word: str = ''
     for x in newWord:
         Word += x

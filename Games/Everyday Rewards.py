@@ -10,7 +10,7 @@ def save():
     f = open("EverydayLogin.txt","w")
     for user in user_list:
         for variable in user:
-            f.write(f"{FullEncode(variable)};")
+            f.write(f"{FullEncode(str(variable))};")
         f.write("\n")
     f.close()
 
@@ -74,7 +74,7 @@ def login():
                 print(f"Score: {logged_user[2]}.\nLast Login Date: {logged_user[3]}/{logged_user[4]}/{logged_user[5]}.\nCurrent Date: {now:%d/%m/%y}\n")
                 logged_user[2] = int(logged_user[2])
                 logged_user[2] += 1
-                print(f"You've logged in {logged_user[2]} days in a row!\nLog in everyday to start a streak!\n")
+                print(f"You've logged in {logged_user[2]} days in a row!\nLog in everyday to continue your streak!\n")
             elif int(duration) > 1:
                 logged_user[2] = 1
                 print(f"Score: {logged_user[2-1]}.\nLast Login Date: {logged_user[3]}/{logged_user[4]}/{logged_user[5]}.\nCurrent Date: {now:%d/%m/%y}\n")
@@ -136,7 +136,8 @@ if __name__ == '__main__':
         while user_login:
             clear()
             login()
-            save()
+            if login() != "Corrupt":
+                save()
             yn: str = input(f"Login as a different User (y/n)? ")
             yn.lower()
             if yn == 'n':
