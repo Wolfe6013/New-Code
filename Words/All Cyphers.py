@@ -2,7 +2,7 @@ import random, os, pyautogui, time
 
 AlphLetter = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
-if not True:
+if True:
     for x in AlphLetter:
         input()
         os.system("cls")
@@ -37,7 +37,3 @@ if not True:
             print(f"            newWord.append('{Alphabet[y]}')")
         print("    Switched: str  = ''.join(newWord)")
         print("    return Switched")
-
-for letter in AlphLetter:
-    print(f"    elif Text[0] == '{letter}' or Text[0] == '{letter.lower()}':")
-    print(f"        HalfText = {letter}_Encode(Text)")

@@ -9845,55 +9845,55 @@ def Decode(Text: str):
     if Text[0] == 'A' or Text[0] == 'a':
         HalfText = A_Decode(Text)
     elif Text[0] == 'B' or Text[0] == 'b':
-        HalfText = B_Encode(Text)
+        HalfText = B_Decode(Text)
     elif Text[0] == 'C' or Text[0] == 'c':
-        HalfText = C_Encode(Text)
+        HalfText = C_Decode(Text)
     elif Text[0] == 'D' or Text[0] == 'd':
-        HalfText = D_Encode(Text)
+        HalfText = D_Decode(Text)
     elif Text[0] == 'E' or Text[0] == 'e':
-        HalfText = E_Encode(Text)
+        HalfText = E_Decode(Text)
     elif Text[0] == 'F' or Text[0] == 'f':
-        HalfText = F_Encode(Text)
+        HalfText = F_Decode(Text)
     elif Text[0] == 'G' or Text[0] == 'g':
-        HalfText = G_Encode(Text)
+        HalfText = G_Decode(Text)
     elif Text[0] == 'H' or Text[0] == 'h':
-        HalfText = H_Encode(Text)
+        HalfText = H_Decode(Text)
     elif Text[0] == 'I' or Text[0] == 'i':
-        HalfText = I_Encode(Text)
+        HalfText = I_Decode(Text)
     elif Text[0] == 'J' or Text[0] == 'j':
-        HalfText = J_Encode(Text)
+        HalfText = J_Decode(Text)
     elif Text[0] == 'K' or Text[0] == 'k':
-        HalfText = K_Encode(Text)
+        HalfText = K_Decode(Text)
     elif Text[0] == 'L' or Text[0] == 'l':
-        HalfText = L_Encode(Text)
+        HalfText = L_Decode(Text)
     elif Text[0] == 'M' or Text[0] == 'm':
-        HalfText = M_Encode(Text)
+        HalfText = M_Decode(Text)
     elif Text[0] == 'N' or Text[0] == 'n':
-        HalfText = N_Encode(Text)
+        HalfText = N_Decode(Text)
     elif Text[0] == 'O' or Text[0] == 'o':
-        HalfText = O_Encode(Text)
+        HalfText = O_Decode(Text)
     elif Text[0] == 'P' or Text[0] == 'p':
-        HalfText = P_Encode(Text)
+        HalfText = P_Decode(Text)
     elif Text[0] == 'Q' or Text[0] == 'q':
-        HalfText = Q_Encode(Text)
+        HalfText = Q_Decode(Text)
     elif Text[0] == 'R' or Text[0] == 'r':
-        HalfText = R_Encode(Text)
+        HalfText = R_Decode(Text)
     elif Text[0] == 'S' or Text[0] == 's':
-        HalfText = S_Encode(Text)
+        HalfText = S_Decode(Text)
     elif Text[0] == 'T' or Text[0] == 't':
-        HalfText = T_Encode(Text)
+        HalfText = T_Decode(Text)
     elif Text[0] == 'U' or Text[0] == 'u':
-        HalfText = U_Encode(Text)
+        HalfText = U_Decode(Text)
     elif Text[0] == 'V' or Text[0] == 'v':
-        HalfText = V_Encode(Text)
+        HalfText = V_Decode(Text)
     elif Text[0] == 'W' or Text[0] == 'w':
-        HalfText = W_Encode(Text)
+        HalfText = W_Decode(Text)
     elif Text[0] == 'X' or Text[0] == 'x':
-        HalfText = X_Encode(Text)
+        HalfText = X_Decode(Text)
     elif Text[0] == 'Y' or Text[0] == 'y':
-        HalfText = Y_Encode(Text)
+        HalfText = Y_Decode(Text)
     else:
-        HalfText = Z_Encode(Text)
+        HalfText = Z_Decode(Text)
     DecodedList: list = []
     for x in HalfText:
         if x != HalfText[0]:
