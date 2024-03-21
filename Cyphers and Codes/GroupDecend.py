@@ -8,13 +8,17 @@ def Invert(Text: str,Size: int):
     x: int = Size - (len(Text) % Size)
     if x < Size:
         for y in range(x):
-            Text = Text + "?"
+            Text = Text + "〄"
     for Position, Letter in enumerate(Text):
         if Position%Size == 0:
-            NormalList.append(f"{Text[Position]}{Text[Position+1]}{Text[Position+2]}")
+            ListToAppend: list = []
+            for x in range(Size):
+                if Text[Position+x] != "〄":
+                    ListToAppend.append(f"{Text[Position+x]}")
+            StringToAppend: str  = ''.join(ListToAppend)
+            NormalList.append(StringToAppend)
     EncodedList: list[str] = []
     for x in NormalList:
-        print(x[::-1])
         EncodedList.append(x[::-1])
     EncodedText: str  = ''.join(EncodedList)
     return EncodedText
