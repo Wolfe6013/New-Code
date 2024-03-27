@@ -198,7 +198,6 @@ if __name__ == "__main__":
             save(loadList)
         elif userInput == "Settings":
             settingsResults = Settings(colour)
-            print(settingsResults,type(settingsResults))
             input()
             colour = settingsResults[0]
             loadList[4] = colour
