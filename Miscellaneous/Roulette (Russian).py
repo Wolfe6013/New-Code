@@ -48,7 +48,7 @@ while yn:
     if p1Health < 1:
         print("You Lost!")
         p2Wins += 1
-    elif p2Health < 2:
+    elif p2Health < 1:
         print("You Won!")
         p1Wins += 1
     
