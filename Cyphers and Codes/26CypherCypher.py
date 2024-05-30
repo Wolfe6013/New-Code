@@ -1,7 +1,4 @@
 #Hello there! I am very pleased to be of your acquaintance.  #original message
-#leH oleht!er I ma revp yaeldesot eb fo oy  ruqcaiauatnecn  .#Every three is turned into groups and inverted
-#o Hel!thel I reer amay pvsedlebe too of ur  yaiacqentau.  nc#Every five
-#t!leH or I lehama reedesvp yot ebelru fo ocaiay  .uatneq  cn   #Every seven
 
 def A_Encode(Text: str):
     newWord: list[str] = []
@@ -9781,7 +9778,7 @@ def Z_Decode(Text: str):
 
 def Encode(Text: str):
     if Text[0] == 'A' or Text[0] == 'a':
-        HalfText = A_Decode(Text)
+        HalfText = A_Decode(Text) 
     elif Text[0] == 'B' or Text[0] == 'b':
         HalfText = B_Encode(Text)
     elif Text[0] == 'C' or Text[0] == 'c':
