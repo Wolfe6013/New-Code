@@ -91,7 +91,10 @@ def DrawField():
         mvPos = Board2.index(x)
         CardText = TextList[mvPos]
         if len(CardText) > 32:
-            CardText2 = CardText[32:]
+            if CardText[32] == " ":
+                CardText2 = CardText[33:]
+            else:
+                CardText2 = CardText[32:]
             CardText = CardText[:10]
         else:
             CardText2 = ""
@@ -103,12 +106,18 @@ def DrawField():
         mvPos = Board2.index(x)
         CardText = TextList[mvPos]
         if len(CardText) > 32:
-            CardText2 = CardText[32:]
+            if CardText[32] == " ":
+                CardText2 = CardText[33:]
+            else:
+                CardText2 = CardText[32:]
             CardText = CardText[:32]
         else:
             CardText2 = ""
         if len(CardText2) > 32:
-            CardText3 = CardText2[32:]
+            if CardText[32] == " ":
+                CardText3 = CardText2[33:]
+            else:
+                CardText3 = CardText2[32:]
             CardText2 = CardText2[:32]
         else:
             CardText3 = ""
@@ -119,7 +128,7 @@ def DrawField():
         CardText = TextList[mvPos]
         try:
             if len(CardText) > 32:
-                if CardText[33] == " ":
+                if CardText[32] == " ":
                     CardText2 = CardText[33:]
                     CardText = CardText[:33]
                 else:
@@ -128,7 +137,7 @@ def DrawField():
             else:
                 CardText2 = ""
             if len(CardText2) > 32:
-                if CardText[33] == " ":
+                if CardText[32] == " ":
                     CardText2 = CardText2[33:]
                     CardText3 = CardText3[:33]
                 else:
