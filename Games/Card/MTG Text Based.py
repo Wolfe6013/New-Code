@@ -12,7 +12,6 @@ Purple = f"\033[1;35;40m"
 Cyan = f"\033[1;36;40m"
 End = f"\033[0m"
 
-
 Library1 = []
 Library2 = []
 Hand1 = []
@@ -24,24 +23,32 @@ Exile2 = []
 Life1 = 40
 Life2 = 40
 Board1 = []
-Board2 = ["Archelos, Lagoon Mystic","Isperia, Bird Bitch"]
-MVList = [f"{End}1{Gray}B{Green}G{Blue}U{End}",f"{End}4{Blue}U{End}"]
-TextList = ["If ~ is untapped, all permanants ETB untapped. If ~ is tapped, all permanants ETB tapped.","When a creature attacks you or a planeswalker you control, draw a card."]
+Board2 = ["Archelos, Lagoon Mystic","Isperia, Supreme Judge"]
+MVList = [f"1BGU",f"4WU"]
+TextList = ["As long as Archelos, Lagoon Mystic is untapped, other permanants enter the battlefield untapped. As long as Archelos, Lagoon Mystic is tapped, other permanants enter the battlefield tapped.",f"{'Flying':<34}When a creature attacks you or a planeswalker you control, you may draw a card."]
+NewTestList = []
+###--- Text is up to 34 characters per line ---###
 
-Deck1 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck1.txt")
-Deck2 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck2.txt")
-data = Deck1.read()
-fileCards = data.split("\n") 
-for x in fileCards:
-    xList = list(x)
-    for y in xList:
-        Library1.append(y)
-data = Deck2.read()
-fileCards = data.split("\n") 
-for x in fileCards:
-    xList = list(x)
-    for y in xList:
-        Library2.append(y)
+def SetUp():
+    Deck1 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck1.txt")
+    Deck2 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck2.txt")
+    data = Deck1.read()
+    fileCards = data.split("\n") 
+    for x in fileCards:
+        xList = list(x)
+        for y in xList:
+            Library1.append(y)
+    data = Deck2.read()
+    fileCards = data.split("\n") 
+    for x in fileCards:
+        xList = list(x)
+        for y in xList:
+            Library2.append(y)
+    for x in TextList:
+        for num, char in enumerate(x):
+            if (num+1)%34 == 0:
+                NewTestList.append("\n")
+            
 
 def GainLife1(LifeGainNo):
     global Life1
@@ -75,88 +82,31 @@ def DrawField():
     for x in Board2:
         mvPos = Board2.index(x)
         ManaValue = MVList[mvPos]
-        print(f"{End}┃ {x:<29} {ManaValue:>6} ┃ ",end="")
+        ManaValue = f"{ManaValue:>6}"
+        MV: list[str] = []
+        for y in ManaValue:
+            if y == "W":
+                MV.append(End)
+            elif y == "U":
+                MV.append(Blue)
+            elif y == "B":
+                MV.append(Gray)
+            elif y == "R":
+                MV.append(Red)
+            elif y == "G":
+                MV.append(Green)
+            MV.append(y)
+        MV.append(End)
+        MV = "".join(MV)
+        print(f"{End}┃ {x:<27} {MV} ┃ ",end="")
     print()
     for x in Board2:
         print(f"┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫ ",end="")
     print()
+    #for x in Board2:
+        #print(f"{End}┃ {CardText:<34} ┃ ",end="")
+    #print()
     for x in Board2:
-        mvPos = Board2.index(x)
-        CardText = TextList[mvPos]
-        if len(CardText) > 32:
-            CardText = CardText[:32]
-        print(f"{End}┃ {CardText:<34} ┃ ",end="")
-    print()
-    for x in Board2:
-        mvPos = Board2.index(x)
-        CardText = TextList[mvPos]
-        if len(CardText) > 32:
-            if CardText[32] == " ":
-                CardText2 = CardText[33:]
-            else:
-                CardText2 = CardText[32:]
-            CardText = CardText[:10]
-        else:
-            CardText2 = ""
-        if len(CardText2) > 32:
-            CardText2 = CardText2[:32]
-        print(f"{End}┃ {CardText2:<34} ┃ ",end="")
-    print()
-    for x in Board2:
-        mvPos = Board2.index(x)
-        CardText = TextList[mvPos]
-        if len(CardText) > 32:
-            if CardText[32] == " ":
-                CardText2 = CardText[33:]
-            else:
-                CardText2 = CardText[32:]
-            CardText = CardText[:32]
-        else:
-            CardText2 = ""
-        if len(CardText2) > 32:
-            if CardText[32] == " ":
-                CardText3 = CardText2[33:]
-            else:
-                CardText3 = CardText2[32:]
-            CardText2 = CardText2[:32]
-        else:
-            CardText3 = ""
-        print(f"{End}┃ {CardText3:<34} ┃ ",end="")
-    print()
-    for x in Board2:
-        mvPos = Board2.index(x)
-        CardText = TextList[mvPos]
-        try:
-            if len(CardText) > 32:
-                if CardText[32] == " ":
-                    CardText2 = CardText[33:]
-                    CardText = CardText[:33]
-                else:
-                    CardText2 = CardText[32:]
-                    CardText = CardText[:32]
-            else:
-                CardText2 = ""
-            if len(CardText2) > 32:
-                if CardText[32] == " ":
-                    CardText2 = CardText2[33:]
-                    CardText3 = CardText3[:33]
-                else:
-                    CardText2 = CardText2[32:]
-                    CardText3 = CardText3[:32]
-            else:
-                CardText3 = ""
-            if len(CardText3) > 32:
-                if CardText[33] == " ":
-                    CardText3 = CardText3[33:]
-                    CardText4 = CardText4[:33]
-                else:
-                    CardText3 = CardText3[32:]
-                    CardText4 = CardText4[:32]
-            else:
-                CardText4 = ""
-            print(f"{End}┃ {CardText4:<34} ┃ ",end="")
-        except:
-            ...
         print(f"{End}┃ {'':<34} ┃ ",end="")
     print()
     for x in Board2:
@@ -165,6 +115,7 @@ def DrawField():
 
 Finished = False
 if __name__ == '__main__':
+    SetUp()
     while not Finished:
         time.sleep(1)
         DrawField()
