@@ -30,6 +30,7 @@ NewTestList = []
 ###--- Text is up to 34 characters per line ---###
 
 def SetUp():
+    global TextList, NewTestList
     Deck1 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck1.txt")
     Deck2 = open(f"C:\\Users\\210108\\Downloads\\Texted Based MTG\\Deck2.txt")
     data = Deck1.read()
@@ -44,11 +45,6 @@ def SetUp():
         xList = list(x)
         for y in xList:
             Library2.append(y)
-    for x in TextList:
-        for num, char in enumerate(x):
-            if (num+1)%34 == 0:
-                NewTestList.append("\n")
-            
 
 def GainLife1(LifeGainNo):
     global Life1
@@ -74,7 +70,7 @@ def Draw1():
 
 def DrawField():
     #os.system("cls")
-    global Hand1, Life1, Life2, Board1, Board2, Gray, Red, Green, Yellow, Blue, Purple, Cyan, End, ScreenSize
+    global Hand1, Life1, Life2, Board1, Board2, Gray, Red, Green, Yellow, Blue, Purple, Cyan, End
     print(f"{Green}{Life2:^198}")
     for x in Board2:
         print(f"{End}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ",end="")
@@ -103,9 +99,15 @@ def DrawField():
     for x in Board2:
         print(f"┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫ ",end="")
     print()
-    #for x in Board2:
-        #print(f"{End}┃ {CardText:<34} ┃ ",end="")
-    #print()
+    for x in Board2:
+        pos = Board2.index(x)
+        print(f"{End}┃ ",end="")
+        Done = 0
+        while Done < 35:
+            print(TextList[pos][Done],end="")
+            Done += 1
+        print(" ┃ ",end="")
+    print()
     for x in Board2:
         print(f"{End}┃ {'':<34} ┃ ",end="")
     print()
