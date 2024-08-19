@@ -5,6 +5,7 @@ import time
 
 target_color = (75,219,106)
 clicksDone = 0
+NoClicks = 1
 
 while True:
     screenshot = ImageGrab.grab()
@@ -12,13 +13,8 @@ while True:
     roi = screenshot_array[700,500]
 
     if np.any(np.all(roi == target_color, axis=-1)):
-        pyautogui.click(700,500,button='left', clicks=2)
+        pyautogui.click(700,500,button='left', clicks=NoClicks)
         clicksDone += 1
     
     if clicksDone == 5:
         clicksDone = 0
-        pyautogui.click(826,901)
-        time.sleep(2)
-        pyautogui.click(875,770)
-        time.sleep(2)
-        pyautogui.click(700,500)
