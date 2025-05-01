@@ -170,7 +170,7 @@ if __name__ == "__main__":
         #maxScore: int = loadList[1]
         #totalClicks: int = loadList[0]
         #totalResets: int = loadList[2]
-        Random = random.choice([End,Gray,Red,Green,Yellow,Blue,Purple,Cyan])
+        Random = random.choice([Red,Green,Yellow,Blue,Purple,Cyan])
         if colour == "Random":
             randomColour = True
             colour = Random

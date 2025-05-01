@@ -1,4 +1,4 @@
-def PascalsTriangle(n):
+def PascalsTriangle(int(n)):
     done = 0
     linesdone = 1
     spacesdone = 0
@@ -44,7 +44,7 @@ def PascalsTriangle(n):
         newlist.append(0)
         pascalslist = newlist
         
-def PascalsTriangleNS(n):
+def PascalsTriangleNS(int(n)):
     done = 0
     linesdone = 1
     newlistdone = 0
@@ -70,7 +70,7 @@ def PascalsTriangleNS(n):
         newlist.append(0)
         pascalslist = newlist
         
-def PascalsTriangleOLL(n):
+def PascalsTriangleOLL(int(n)):
     done = 1
     linesdone = 1
     newlistdone = 0
@@ -92,7 +92,7 @@ def PascalsTriangleOLL(n):
         pascalslist = newlist
     print(newlist)
 
-def PascalsTriangleQOLL(n):
+def PascalsTriangleQOLL(int(n)):
     done = 0
     pascalslist = [1]
     divide = 1
