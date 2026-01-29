@@ -20,7 +20,7 @@ def Question_Fetch(Response):
 
 
 
-while True:
+while __name__ == "__main__":
 
   question = input("What's your question? ")
 
