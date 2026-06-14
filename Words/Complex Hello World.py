@@ -30,4 +30,6 @@ def Code():
             NumberOfMatches -= 1
         else: ... #print(f"{Word}.")
     print('d')
-Code()
+
+if __name__ == "__main__":
+    Code()

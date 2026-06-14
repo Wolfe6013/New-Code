@@ -22,7 +22,7 @@ while wanttodo > timesdone:
     print("Check",timesdone+1," ",letter1+ letter2+ letter3+ letter4)
     time.sleep(wait/1000)
     if FirstLetter == letter1 and SecondLetter == letter2 and ThirdLetter == letter3 and FourthLetter == letter4:
-        print("Done!!!")
+        print(f"Done!!! Each word was said {round(timesdone/456976,3)} times (on average)")
         timesdone = wanttodo 
         found = 1
     timesdone = timesdone+1
